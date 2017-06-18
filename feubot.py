@@ -20,4 +20,9 @@ async def search(*, stuff_to_search_for):
     """says stuff"""
     await bot.say("http://feuniverse.us/search?q="+urllib.parse.quote(stuff_to_search_for))
 
+@bot.command()
+async def donate():
+    """you know it"""
+    await bot.say("https://donorbox.org/donate-to-circles")
+
 bot.run(open('./token','r').read().replace('\n', ''))

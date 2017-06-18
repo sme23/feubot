@@ -4,9 +4,27 @@ import asyncio
 import re
 import random
 import urllib
+import urllib.request
 import os
+import json
 
 bot = commands.Bot(command_prefix=['>>', 'feubot '], description='this is feubot.')
+
+def trunc_to(ln, s):
+    if len(s) <= ln: return s
+    else: return s[:ln-3]+"..."
+
+def embed_link(thread):
+    feu_thread_base = "http://feuniverse.us/t/%d"
+    result = discord.Embed(title=thread["title"],url=feu_thread_base % thread["id"])
+    thread_data = (feu_thread_base % thread["id"]) + ".json"
+    with urllib.request.urlopen(thread_data) as query:
+        data = json.loads(query.read().decode())
+        op = data["post_stream"]["posts"][0]
+        author = op["name"]
+        text = trunc_to(200, op["cooked"])
+    result.add_field(name="thread by %s" % author, value=text, inline=False)
+    return result
 
 @bot.event
 async def on_ready():
@@ -20,10 +38,32 @@ async def on_ready():
 async def search(*, stuff_to_search_for):
     """search feu"""
     searchpage = "http://feuniverse.us/search?q="+urllib.parse.quote(stuff_to_search_for)
+    searchdata = json.loads(urllib.request.urlopen("http://feuniverse.us/search.json?q="+urllib.parse.quote(stuff_to_search_for)).read().decode())
+
     embed_thing=discord.Embed(title="FEUniverse Search Results", url=searchpage)
-    embed_thing.add_field(name=stuff_to_search_for, value="Click me", inline=False)
+    embed_thing.add_field(name=stuff_to_search_for, value=str(len(searchdata["posts"]))+" result(s) found.", inline=False)
     await bot.say(embed=embed_thing)
     # await bot.say(searchpage)
+
+# async def search(*, term):
+#     """search feu"""
+#     root = "http://feuniverse.us/search.json?q=%s"
+#     payload = urllib.parse.quote(term)
+#     output = ""
+#     with urllib.request.urlopen(root % payload) as query:
+#         try:
+#             data = json.loads(query.read().decode())
+#             threads = data["topics"]
+#             response = "Found %d topics with search term '%s'" % (len(threads), term)
+#             displayed = map(embed_link, threads[5:])
+#             output = [response, *displayed]
+#             if len(threads) > 5:
+#                 output.append("(Truncated %d further responses)" % (len(threads)-5))
+#         except URLError:
+#             output = ["Error accessing FEU server, please try again later."]
+#         except KeyError:
+#             output = ["Found 0 topics with search term '%s'." % term]
+#     await bot.say(*output)
 
 @bot.command()
 async def donate():
@@ -69,6 +109,16 @@ async def goof(*args):
                 await bot.say("Use >>goofs to see a list of accepted goofs.")
     else:
         await bot.upload("./goofs/"+random.choice(gooflist))
+
+@bot.command()
+async def erin():
+    """ERIN INTENSIFIES"""
+    await bot.upload("./erinyous.gif")
+
+@bot.command()
+async def fury():
+    """2 FAST 2 FURYOUS"""
+    await bot.say("Don't you mean `>>erin`?")
 
 @bot.command()
 async def doot():

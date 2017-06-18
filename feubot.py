@@ -9,10 +9,20 @@ import urllib.request, json
 
 bot = commands.Bot(command_prefix=['>>', 'feubot '], description='this is feubot.')
 
+def trunc_to(ln, s):
+    if len(s) <= ln: return s
+    else: return s[:ln-3]+"..."
+
 def embed_link(thread):
-    feu_thread_base = "http://feuniverse.us/t/%d/"
+    feu_thread_base = "http://feuniverse.us/t/%d"
     result = discord.Embed(title=thread["title"],url=feu_thread_base % thread["id"])
-    #result.add_field(name="by %s" % thread[""])
+    thread_data = (feu_thread_base % thread["id"]) + ".json"
+    with urllib.request.urlopen(thread_data) as query:
+        data = json.loads(query.read().decode())
+        op = data["post_stream"]["posts"][0]
+        author = op["name"]
+        text = trunc_to(200, op["cooked"])
+    result.add_field(name="thread by %s" % author, value=text, inline=False)
     return result
 
 @bot.event
@@ -35,11 +45,14 @@ async def search(*, term):
             threads = data["topics"]
             response = "Found %d topics with search term '%s'" % (len(threads), term)
             displayed = map(embed_link, threads[5:])
+            output = [response, *displayed]
+            if len(threads) > 5:
+                output.append("(Truncated %d further responses)" % (len(threads)-5))
         except URLError:
-            output = "Error accessing FEU server, please try again later."
+            output = ["Error accessing FEU server, please try again later."]
         except KeyError:
-            output = "Found 0 topics with search term '%s'." % term
-    await bot.say(output)
+            output = ["Found 0 topics with search term '%s'." % term]
+    await bot.say(*output)
     # await bot.say(searchpage)
 
 @bot.command()

@@ -4,8 +4,9 @@ import asyncio
 import re
 import random
 import urllib
+import urllib.request
 import os
-import urllib.request, json
+import json
 
 bot = commands.Bot(command_prefix=['>>', 'feubot '], description='this is feubot.')
 
@@ -53,7 +54,6 @@ async def search(*, term):
         except KeyError:
             output = ["Found 0 topics with search term '%s'." % term]
     await bot.say(*output)
-    # await bot.say(searchpage)
 
 @bot.command()
 async def donate():
@@ -99,6 +99,16 @@ async def goof(*args):
                 await bot.say("Use >>goofs to see a list of accepted goofs.")
     else:
         await bot.upload("./goofs/"+random.choice(gooflist))
+
+@bot.command()
+async def erin():
+    """ERIN INTENSIFIES"""
+    await bot.upload("./erinyous.gif")
+
+@bot.command()
+async def fury():
+    """2 FAST 2 FURYOUS"""
+    await bot.say("Don't you mean `>>erin`?")
 
 @bot.command()
 async def doot():

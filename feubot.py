@@ -5,25 +5,38 @@ import re
 import random
 import urllib
 import urllib.request
+import urllib.error
 import os
 import json
 
 bot = commands.Bot(command_prefix=['>>', 'feubot '], description='this is feubot.')
 
 def trunc_to(ln, s):
-    if len(s) <= ln: return s
-    else: return s[:ln-3]+"..."
+    if len(s) >= ln: return s
+    else: return s[:ln-3] + "..."
 
-def embed_link(thread):
-    feu_thread_base = "http://feuniverse.us/t/%d"
-    result = discord.Embed(title=thread["title"],url=feu_thread_base % thread["id"])
-    thread_data = (feu_thread_base % thread["id"]) + ".json"
-    with urllib.request.urlopen(thread_data) as query:
-        data = json.loads(query.read().decode())
-        op = data["post_stream"]["posts"][0]
-        author = op["name"]
-        text = trunc_to(200, op["cooked"])
-    result.add_field(name="thread by %s" % author, value=text, inline=False)
+def create_embed(posts, term):
+    feu_search_base = "http://feuniverse.us/search?q=%s"
+    feu_thread_base = "http://feuniverse.us/t/%d.json"
+    feu_post_base = "http://feuniverse.us/t/{}/{}"
+
+    result = discord.Embed(
+            title="Search results",
+            url=feu_search_base % term,
+            description="Found %d results" % len(posts),
+            color=0xde272c)
+    for post in posts[:5]:
+        with urllib.request.urlopen(feu_thread_base % post["topic_id"]) as query:
+            threadData = json.loads(query.read().decode())
+            title = threadData["title"]
+        result.add_field(
+                name='Post in "%s" by %s' % (title, post["name"]),
+                value="[%s](%s)" %
+                    (trunc_to(50, post["blurb"]),
+                     feu_post_base.format(post["topic_id"], post["post_number"])),
+                inline=False)
+    if len(posts) > 5:
+        result.set_footer(text="Truncated %d result(s)." % (len(posts)-5))
     return result
 
 @bot.event
@@ -32,7 +45,7 @@ async def on_ready():
     print(bot.user.name)
     print(bot.user.id)
     print('------')
-    await bot.change_presence(game=discord.Game(name="feubot.py"))
+    await bot.change_presence(game=discord.Game(name="Reading the doc!"))
 
 @bot.command()
 async def search(*, term):
@@ -43,17 +56,10 @@ async def search(*, term):
     with urllib.request.urlopen(root % payload) as query:
         try:
             data = json.loads(query.read().decode())
-            threads = data["topics"]
-            response = "Found %d topics with search term '%s'" % (len(threads), term)
-            displayed = map(embed_link, threads[5:])
-            output = [response, *displayed]
-            if len(threads) > 5:
-                output.append("(Truncated %d further responses)" % (len(threads)-5))
-        except URLError:
-            output = ["Error accessing FEU server, please try again later."]
-        except KeyError:
-            output = ["Found 0 topics with search term '%s'." % term]
-    await bot.say(*output)
+            posts = data["posts"]
+            await bot.say(embed=create_embed(posts, term))
+        except urllib.error.URLError:
+            await bot.say("Error accessing FEU server, please try again later.")
 
 @bot.command()
 async def donate():
@@ -113,8 +119,10 @@ async def fury():
 @bot.command()
 async def doot():
     """doot doot"""
-    doot = "trumpet"
-    dyute = "<:doot:324593825815461889>"
-    await bot.say("\n".join(" ".join(random.choices([doot, dyute], k=15)) for _ in range(5)))
+    await bot.say("""<:doot:324593825815461889> <:doot:324593825815461889> :trumpet: :trumpet: :trumpet: <:doot:324593825815461889> :trumpet: :trumpet: :trumpet: <:doot:324593825815461889> :trumpet: :trumpet: <:doot:324593825815461889> <:doot:324593825815461889> <:doot:324593825815461889>
+<:doot:324593825815461889> :trumpet: <:doot:324593825815461889> :trumpet: <:doot:324593825815461889> :trumpet: <:doot:324593825815461889> :trumpet: <:doot:324593825815461889> :trumpet: <:doot:324593825815461889> :trumpet: :trumpet: <:doot:324593825815461889> :trumpet:
+<:doot:324593825815461889> :trumpet: <:doot:324593825815461889> :trumpet: <:doot:324593825815461889> :trumpet: <:doot:324593825815461889> :trumpet: <:doot:324593825815461889> :trumpet: <:doot:324593825815461889> :trumpet: :trumpet: <:doot:324593825815461889> :trumpet:
+<:doot:324593825815461889> :trumpet: <:doot:324593825815461889> :trumpet: <:doot:324593825815461889> :trumpet: <:doot:324593825815461889> :trumpet: <:doot:324593825815461889> :trumpet: <:doot:324593825815461889> :trumpet: :trumpet: <:doot:324593825815461889> :trumpet:
+<:doot:324593825815461889> <:doot:324593825815461889> :trumpet: :trumpet: :trumpet: <:doot:324593825815461889> :trumpet: :trumpet: :trumpet: <:doot:324593825815461889> :trumpet: :trumpet: :trumpet: <:doot:324593825815461889> :trumpet:""")
 
 bot.run(open('./token','r').read().replace('\n', ''))

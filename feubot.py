@@ -5,8 +5,15 @@ import re
 import random
 import urllib
 import os
+import urllib.request, json
 
 bot = commands.Bot(command_prefix=['>>', 'feubot '], description='this is feubot.')
+
+def embed_link(thread):
+    feu_thread_base = "http://feuniverse.us/t/%d/"
+    result = discord.Embed(title=thread["title"],url=feu_thread_base % thread["id"])
+    #result.add_field(name="by %s" % thread[""])
+    return result
 
 @bot.event
 async def on_ready():
@@ -17,12 +24,22 @@ async def on_ready():
     await bot.change_presence(game=discord.Game(name="feubot.py"))
 
 @bot.command()
-async def search(*, stuff_to_search_for):
+async def search(*, term):
     """search feu"""
-    searchpage = "http://feuniverse.us/search?q="+urllib.parse.quote(stuff_to_search_for)
-    embed_thing=discord.Embed(title="FEUniverse Search Results", url=searchpage)
-    embed_thing.add_field(name=stuff_to_search_for, value="Click me", inline=False)
-    await bot.say(embed=embed_thing)
+    root = "http://feuniverse.us/search.json?q=%s"
+    payload = urllib.parse.quote(term)
+    output = ""
+    with urllib.request.urlopen(root % payload) as query:
+        try:
+            data = json.loads(query.read().decode())
+            threads = data["topics"]
+            response = "Found %d topics with search term '%s'" % (len(threads), term)
+            displayed = map(embed_link, threads[5:])
+        except URLError:
+            output = "Error accessing FEU server, please try again later."
+        except KeyError:
+            output = "Found 0 topics with search term '%s'." % term
+    await bot.say(output)
     # await bot.say(searchpage)
 
 @bot.command()
@@ -65,7 +82,7 @@ async def goof(*args):
         for request in requested:
             if request in gooflist:
                 await bot.upload("./goofs/"+request)
-            else:    
+            else:
                 await bot.say("Use >>goofs to see a list of accepted goofs.")
     else:
         await bot.upload("./goofs/"+random.choice(gooflist))
@@ -73,11 +90,8 @@ async def goof(*args):
 @bot.command()
 async def doot():
     """doot doot"""
-    await bot.say("""<:doot:324593825815461889> <:doot:324593825815461889> :trumpet: :trumpet: :trumpet: <:doot:324593825815461889> :trumpet: :trumpet: :trumpet: <:doot:324593825815461889> :trumpet: :trumpet: <:doot:324593825815461889> <:doot:324593825815461889> <:doot:324593825815461889>
-<:doot:324593825815461889> :trumpet: <:doot:324593825815461889> :trumpet: <:doot:324593825815461889> :trumpet: <:doot:324593825815461889> :trumpet: <:doot:324593825815461889> :trumpet: <:doot:324593825815461889> :trumpet: :trumpet: <:doot:324593825815461889> :trumpet:
-<:doot:324593825815461889> :trumpet: <:doot:324593825815461889> :trumpet: <:doot:324593825815461889> :trumpet: <:doot:324593825815461889> :trumpet: <:doot:324593825815461889> :trumpet: <:doot:324593825815461889> :trumpet: :trumpet: <:doot:324593825815461889> :trumpet:
-<:doot:324593825815461889> :trumpet: <:doot:324593825815461889> :trumpet: <:doot:324593825815461889> :trumpet: <:doot:324593825815461889> :trumpet: <:doot:324593825815461889> :trumpet: <:doot:324593825815461889> :trumpet: :trumpet: <:doot:324593825815461889> :trumpet:
-<:doot:324593825815461889> <:doot:324593825815461889> :trumpet: :trumpet: :trumpet: <:doot:324593825815461889> :trumpet: :trumpet: :trumpet: <:doot:324593825815461889> :trumpet: :trumpet: :trumpet: <:doot:324593825815461889> :trumpet:""")
-
+    doot = "trumpet"
+    dyute = "<:doot:324593825815461889>"
+    await bot.say("\n".join(" ".join(random.choices([doot, dyute], k=15)) for _ in range(5)))
 
 bot.run(open('./token','r').read().replace('\n', ''))

@@ -9,7 +9,7 @@ import urllib.error
 import os
 import json
 
-bot = commands.Bot(command_prefix=['>>'], description='this is feubot.')
+bot = commands.Bot(command_prefix=['>>', 'feubot '], description='this is feubot.')
 
 def trunc_to(ln, s):
     if len(s) >= ln: return s
@@ -121,4 +121,7 @@ async def doot():
 <:doot:324593825815461889> :trumpet: <:doot:324593825815461889> :trumpet: <:doot:324593825815461889> :trumpet: <:doot:324593825815461889> :trumpet: <:doot:324593825815461889> :trumpet: <:doot:324593825815461889> :trumpet: :trumpet: <:doot:324593825815461889> :trumpet:
 <:doot:324593825815461889> <:doot:324593825815461889> :trumpet: :trumpet: :trumpet: <:doot:324593825815461889> :trumpet: :trumpet: :trumpet: <:doot:324593825815461889> :trumpet: :trumpet: :trumpet: <:doot:324593825815461889> :trumpet:""")
 
-bot.run(os.environ.get('TOKEN', default=open('./token').read().replace('\n','')))
+token = os.environ.get('TOKEN', default=None)
+if token is None:
+    token = open('./token').read().replace('\n','')
+bot.run(token)

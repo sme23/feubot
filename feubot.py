@@ -9,34 +9,46 @@ import urllib.error
 import os
 import json
 
-bot = commands.Bot(command_prefix=['>>', 'feubot '], description='this is feubot.')
+# bot = commands.Bot(command_prefix=['>>', 'feubot '], description='this is feubot.')
+
+bot = commands.Bot(command_prefix=['##', 'feubeta '], description='this is feubot beta.')
 
 def trunc_to(ln, s):
     if len(s) >= ln: return s
     else: return s[:ln-3] + "..."
 
-def create_embed(posts, term):
+def highlight(s, term):
+    to_bold = term.split(' ')
+    output = re.sub(r'(%s)' % '|'.join(to_bold), r'**\1**', s, flags=re.IGNORECASE)
+    return output
+
+def capitalise(s, term):
+    to_bold = term.split(' ')
+    output = re.sub(r'(%s)' % '|'.join(to_bold), lambda match: r'{}'.format(match.group(1).upper()), s, flags=re.IGNORECASE)
+    return output
+
+def create_embed(posts, threads, term):
     feu_search_base = "http://feuniverse.us/search?q=%s"
-    feu_thread_base = "http://feuniverse.us/t/%d.json"
     feu_post_base = "http://feuniverse.us/t/{}/{}"
+    searchtext = urllib.parse.unquote(term)
+    numresults = 3
 
     result = discord.Embed(
-            title="Search results",
+            title='Search results for "%s"' % urllib.parse.unquote(term),
             url=feu_search_base % term,
             description="Found %d results" % len(posts),
             color=0xde272c)
-    for post in posts[:5]:
-        with urllib.request.urlopen(feu_thread_base % post["topic_id"]) as query:
-            threadData = json.loads(query.read().decode())
-            title = threadData["title"]
+    for i,post in enumerate(posts[:numresults]):
         result.add_field(
-                name='Post in "%s" by %s' % (title, post["name"]),
-                value="[%s](%s)" %
-                    (trunc_to(50, post["blurb"]),
-                     feu_post_base.format(post["topic_id"], post["post_number"])),
+                name=capitalise(
+                    'Post in "%s" by %s' % (threads[i]["title"], post["name"])
+                    ,searchtext),
+                value="[%s](%s)" % 
+                    (highlight(trunc_to(50, post["blurb"]), searchtext),
+                    feu_post_base.format(post["topic_id"], post["post_number"])),
                 inline=False)
-    if len(posts) > 5:
-        result.set_footer(text="Truncated %d result(s)." % (len(posts)-5))
+    if len(posts) > numresults:
+        result.set_footer(text="Truncated %d result(s)." % (len(posts)-numresults))
     return result
 
 @bot.event
@@ -52,12 +64,12 @@ async def search(*, term):
     """search feu"""
     root = "http://feuniverse.us/search.json?q=%s"
     payload = urllib.parse.quote(term)
-    output = ""
     with urllib.request.urlopen(root % payload) as query:
         try:
             data = json.loads(query.read().decode())
             posts = data["posts"]
-            await bot.say(embed=create_embed(posts, payload))
+            threads = data["topics"]
+            await bot.say(embed=create_embed(posts, threads, payload))
         except urllib.error.URLError:
             await bot.say("Error accessing FEU server, please try again later.")
 
@@ -119,10 +131,17 @@ async def fury():
 @bot.command()
 async def doot():
     """doot doot"""
-    await bot.say("""<:doot:324593825815461889> <:doot:324593825815461889> :trumpet: :trumpet: :trumpet: <:doot:324593825815461889> :trumpet: :trumpet: :trumpet: <:doot:324593825815461889> :trumpet: :trumpet: <:doot:324593825815461889> <:doot:324593825815461889> <:doot:324593825815461889>
+    flip = random.randint(0,1)
+    if flip ==1:
+        await bot.say("""<:doot:324593825815461889> <:doot:324593825815461889> :trumpet: :trumpet: :trumpet: <:doot:324593825815461889> :trumpet: :trumpet: :trumpet: <:doot:324593825815461889> :trumpet: :trumpet: <:doot:324593825815461889> <:doot:324593825815461889> <:doot:324593825815461889>
 <:doot:324593825815461889> :trumpet: <:doot:324593825815461889> :trumpet: <:doot:324593825815461889> :trumpet: <:doot:324593825815461889> :trumpet: <:doot:324593825815461889> :trumpet: <:doot:324593825815461889> :trumpet: :trumpet: <:doot:324593825815461889> :trumpet:
 <:doot:324593825815461889> :trumpet: <:doot:324593825815461889> :trumpet: <:doot:324593825815461889> :trumpet: <:doot:324593825815461889> :trumpet: <:doot:324593825815461889> :trumpet: <:doot:324593825815461889> :trumpet: :trumpet: <:doot:324593825815461889> :trumpet:
 <:doot:324593825815461889> :trumpet: <:doot:324593825815461889> :trumpet: <:doot:324593825815461889> :trumpet: <:doot:324593825815461889> :trumpet: <:doot:324593825815461889> :trumpet: <:doot:324593825815461889> :trumpet: :trumpet: <:doot:324593825815461889> :trumpet:
 <:doot:324593825815461889> <:doot:324593825815461889> :trumpet: :trumpet: :trumpet: <:doot:324593825815461889> :trumpet: :trumpet: :trumpet: <:doot:324593825815461889> :trumpet: :trumpet: :trumpet: <:doot:324593825815461889> :trumpet:""")
+    else:
+        await bot.upload("./DOOT.png")
 
-bot.run(os.environ['TOKEN'])
+token = os.environ.get('TOKEN', default=None)
+if token is None:
+    token = open('./token').read().replace('\n','')
+bot.run(token)

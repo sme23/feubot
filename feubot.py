@@ -121,6 +121,22 @@ async def goof(*args):
         await bot.upload("./goofs/"+random.choice(gooflist))
 
 @bot.command()
+async def ew():
+    """disgusting"""
+    barflist = os.listdir("./disgusting")
+    await bot.upload("./goofs/"+random.choice(barflist))
+
+@bot.command()
+async def casual():
+    """just play phoenix"""
+    await bot.upload("./casual_amelia.png")
+
+@bot.command()
+async def hector():
+    """judges you"""
+    await bot.upload("./hectorpc.png")
+
+@bot.command()
 async def erin():
     """ERIN INTENSIFIES"""
     await bot.upload("./erinyous.gif")

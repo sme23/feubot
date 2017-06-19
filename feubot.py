@@ -129,7 +129,8 @@ async def ew():
 @bot.command()
 async def casual():
     """just play phoenix"""
-    await bot.upload("./casual_amelia.png")
+    barflist = os.listdir("./casual")
+    await bot.upload("./casual/"+random.choice(barflist))
 
 @bot.command()
 async def crackers():

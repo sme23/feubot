@@ -158,6 +158,28 @@ async def goldmine():
     await bot.say("https://www.dropbox.com/sh/xl73trcck2la799/AAAMdpNSGQWEzYkLEQEiEhGFa?dl=0")
 
 @bot.command()
+async def hit(number, type="1RN"):
+    """rolls hit or miss (e.g. >>hit 50 1rn/2rn/fates)"""
+    try:
+        num = int(number)
+    except ValueError:
+        await bot.say("Specify a number 0-100")
+        return
+    if type.upper()=="1RN":
+        rolled = random.randint(1,100)
+    elif type.upper()=="2RN":
+        rolled = (random.randint(1,100) + random.randint(1,100))>>1
+    elif type.upper()=="FATES":
+        rolled = random.randint(1,100)
+        if rolled > 50:
+            rolled = ((rolled*3) + random.randint(1,100))>>2
+    else:
+        await bot.say("Valid types are 1RN, 2RN, Fates")
+        return
+    if rolled <= num: await bot.say("HIT")
+    else: await bot.say("MISS")
+
+@bot.command()
 async def doot():
     """doot doot"""
     flip = random.choice([0,1])

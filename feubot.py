@@ -131,6 +131,11 @@ async def fury():
     await bot.say("Don't you mean `>>erin`?")
 
 @bot.command()
+async def goldmine():
+    """everything you ever wanted"""
+    await bot.say("https://www.dropbox.com/sh/xl73trcck2la799/AAAMdpNSGQWEzYkLEQEiEhGFa?dl=0")
+
+@bot.command()
 async def doot():
     """doot doot"""
     flip = random.randint(0,1)

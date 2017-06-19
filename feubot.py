@@ -124,7 +124,7 @@ async def goof(*args):
 async def ew():
     """disgusting"""
     barflist = os.listdir("./disgusting")
-    await bot.upload("./goofs/"+random.choice(barflist))
+    await bot.upload("./disgusting/"+random.choice(barflist))
 
 @bot.command()
 async def casual():

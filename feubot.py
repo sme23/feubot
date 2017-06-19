@@ -41,7 +41,7 @@ def create_embed(posts, threads, term):
     for i,post in enumerate(posts[:numresults]):
         result.add_field(
                 name=capitalise(
-                    'Post in "%s" by %s' % (threads[i]["title"], post["name"])
+                    'Post in "%s" by %s' % (threads[i]["title"], post["username"])
                     ,searchtext),
                 value="[%s](%s)" % 
                     (highlight(trunc_to(50, post["blurb"]), searchtext),

@@ -9,11 +9,19 @@ import urllib.error
 import os
 import json
 
-bot = commands.Bot(command_prefix=['>>', 'feubot '], description='this is feubot.')
+# bot = commands.Bot(command_prefix=['>>', 'feubot '], description='this is feubot.')
+
+bot = commands.Bot(command_prefix=['##', 'feubeta '], description='this is feubot beta.')
 
 def trunc_to(ln, s):
     if len(s) >= ln: return s
     else: return s[:ln-3] + "..."
+
+def highlight(s, term):
+    output = s
+    to_bold = term.split(' ')
+    #uhhh idk
+    return output
 
 def create_embed(posts, threads, term):
     feu_search_base = "http://feuniverse.us/search?q=%s"
@@ -29,7 +37,7 @@ def create_embed(posts, threads, term):
         result.add_field(
                 name='Post in "%s" by %s' % (threads[i]["title"], post["name"]),
                 value="[%s](%s)" %
-                    (trunc_to(50, post["blurb"]),
+                    highlight(trunc_to(50, post["blurb"], urllib.parse.unquote(term)),
                      feu_post_base.format(post["topic_id"], post["post_number"])),
                 inline=False)
     if len(posts) > numresults:

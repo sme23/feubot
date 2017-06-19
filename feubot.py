@@ -176,8 +176,8 @@ async def hit(number, type="1RN"):
     else:
         await bot.say("Valid types are 1RN, 2RN, Fates")
         return
-    if rolled <= num: await bot.say("HIT")
-    else: await bot.say("MISS")
+    if rolled <= num: await bot.say("HIT (%d)" % rolled)
+    else: await bot.say("MISS (%d)" % rolled)
 
 @bot.command()
 async def doot():

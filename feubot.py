@@ -132,6 +132,11 @@ async def casual():
     await bot.upload("./casual_amelia.png")
 
 @bot.command()
+async def crackers():
+    """jumping boat monkeys!"""
+    await bot.upload("./Holy_crackers.png")
+
+@bot.command()
 async def hector():
     """judges you"""
     await bot.upload("./hectorpc.png")

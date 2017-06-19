@@ -72,6 +72,8 @@ async def search(*, term):
             await bot.say(embed=create_embed(posts, threads, payload))
         except urllib.error.URLError:
             await bot.say("Error accessing FEU server, please try again later.")
+        except KeyError:
+            await bot.say(embed=create_embed(posts, [], payload))
 
 @bot.command()
 async def donate():

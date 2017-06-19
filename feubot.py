@@ -18,14 +18,19 @@ def trunc_to(ln, s):
     else: return s[:ln-3] + "..."
 
 def highlight(s, term):
-    output = s
     to_bold = term.split(' ')
-    #uhhh idk
+    output = re.sub(r'(%s)' % '|'.join(to_bold), r'**\1**', s, flags=re.IGNORECASE)
+    return output
+
+def capitalise(s, term):
+    to_bold = term.split(' ')
+    output = re.sub(r'(%s)' % '|'.join(to_bold), lambda match: r'{}'.format(match.group(1).upper()), s, flags=re.IGNORECASE)
     return output
 
 def create_embed(posts, threads, term):
     feu_search_base = "http://feuniverse.us/search?q=%s"
     feu_post_base = "http://feuniverse.us/t/{}/{}"
+    searchtext = urllib.parse.unquote(term)
     numresults = 3
 
     result = discord.Embed(
@@ -35,10 +40,12 @@ def create_embed(posts, threads, term):
             color=0xde272c)
     for i,post in enumerate(posts[:numresults]):
         result.add_field(
-                name='Post in "%s" by %s' % (threads[i]["title"], post["name"]),
-                value="[%s](%s)" %
-                    highlight(trunc_to(50, post["blurb"], urllib.parse.unquote(term)),
-                     feu_post_base.format(post["topic_id"], post["post_number"])),
+                name=capitalise(
+                    'Post in "%s" by %s' % (threads[i]["title"], post["name"])
+                    ,searchtext),
+                value="[%s](%s)" % 
+                    (highlight(trunc_to(50, post["blurb"]), searchtext),
+                    feu_post_base.format(post["topic_id"], post["post_number"])),
                 inline=False)
     if len(posts) > numresults:
         result.set_footer(text="Truncated %d result(s)." % (len(posts)-numresults))

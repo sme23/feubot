@@ -18,21 +18,22 @@ def trunc_to(ln, s):
 def create_embed(posts, threads, term):
     feu_search_base = "http://feuniverse.us/search?q=%s"
     feu_post_base = "http://feuniverse.us/t/{}/{}"
+    numresults = 3
 
     result = discord.Embed(
-            title="Search results",
+            title='Search results for "%s"' % urllib.parse.unquote(term),
             url=feu_search_base % term,
             description="Found %d results" % len(posts),
             color=0xde272c)
-    for i,post in enumerate(posts[:5]):
+    for i,post in enumerate(posts[:numresults]):
         result.add_field(
                 name='Post in "%s" by %s' % (threads[i]["title"], post["name"]),
                 value="[%s](%s)" %
                     (trunc_to(50, post["blurb"]),
                      feu_post_base.format(post["topic_id"], post["post_number"])),
                 inline=False)
-    if len(posts) > 5:
-        result.set_footer(text="Truncated %d result(s)." % (len(posts)-5))
+    if len(posts) > numresults:
+        result.set_footer(text="Truncated %d result(s)." % (len(posts)-numresults))
     return result
 
 @bot.event
@@ -115,11 +116,15 @@ async def fury():
 @bot.command()
 async def doot():
     """doot doot"""
-    await bot.say("""<:doot:324593825815461889> <:doot:324593825815461889> :trumpet: :trumpet: :trumpet: <:doot:324593825815461889> :trumpet: :trumpet: :trumpet: <:doot:324593825815461889> :trumpet: :trumpet: <:doot:324593825815461889> <:doot:324593825815461889> <:doot:324593825815461889>
+    flip = random.randint(0,1)
+    if flip ==1:
+        await bot.say("""<:doot:324593825815461889> <:doot:324593825815461889> :trumpet: :trumpet: :trumpet: <:doot:324593825815461889> :trumpet: :trumpet: :trumpet: <:doot:324593825815461889> :trumpet: :trumpet: <:doot:324593825815461889> <:doot:324593825815461889> <:doot:324593825815461889>
 <:doot:324593825815461889> :trumpet: <:doot:324593825815461889> :trumpet: <:doot:324593825815461889> :trumpet: <:doot:324593825815461889> :trumpet: <:doot:324593825815461889> :trumpet: <:doot:324593825815461889> :trumpet: :trumpet: <:doot:324593825815461889> :trumpet:
 <:doot:324593825815461889> :trumpet: <:doot:324593825815461889> :trumpet: <:doot:324593825815461889> :trumpet: <:doot:324593825815461889> :trumpet: <:doot:324593825815461889> :trumpet: <:doot:324593825815461889> :trumpet: :trumpet: <:doot:324593825815461889> :trumpet:
 <:doot:324593825815461889> :trumpet: <:doot:324593825815461889> :trumpet: <:doot:324593825815461889> :trumpet: <:doot:324593825815461889> :trumpet: <:doot:324593825815461889> :trumpet: <:doot:324593825815461889> :trumpet: :trumpet: <:doot:324593825815461889> :trumpet:
 <:doot:324593825815461889> <:doot:324593825815461889> :trumpet: :trumpet: :trumpet: <:doot:324593825815461889> :trumpet: :trumpet: :trumpet: <:doot:324593825815461889> :trumpet: :trumpet: :trumpet: <:doot:324593825815461889> :trumpet:""")
+    else:
+        await bot.upload("./DOOT.png")
 
 token = os.environ.get('TOKEN', default=None)
 if token is None:

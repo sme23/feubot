@@ -209,8 +209,9 @@ async def createwaifu(*args):
         "<:BBQ:230169373694885888>", 
         "<:arch_mini:230160993299202068>", 
         "<:cam_thumb:307559627573428224>", 
+        "<:dat:292422389197701121>", 
         "<:thighs:294965155819683840>"]
-    if len(args) > 0: head = args[0]
+    if len(args) > 0: head = ' '.join(args)
     else: head = random.choice(heads)
     await bot.say(head + """
 <:personality:274564774979960832>

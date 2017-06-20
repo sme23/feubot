@@ -14,7 +14,7 @@ bot = commands.Bot(command_prefix=['!', '>>', 'feubot '], description='this is f
 # bot = commands.Bot(command_prefix=['##', 'feubeta '], description='this is feubot beta.')
 
 def trunc_to(ln, s):
-    if len(s) >= ln: return s
+    if len(s) <= ln: return s
     else: return s[:ln-3] + "..."
 
 def highlight(s, term):

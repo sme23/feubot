@@ -31,7 +31,7 @@ def create_embed(posts, threads, term):
     feu_search_base = "http://feuniverse.us/search?q=%s"
     feu_post_base = "http://feuniverse.us/t/{}/{}"
     searchtext = urllib.parse.unquote(term)
-    numresults = 3
+    numresults = 5
 
     result = discord.Embed(
             title='Search results for "%s"' % urllib.parse.unquote(term),

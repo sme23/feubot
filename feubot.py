@@ -107,19 +107,38 @@ async def goofs():
     """list goofs"""
     await bot.say("```"+"\n".join(map(str, os.listdir("./goofs")))+"```")
 
+# @bot.command()
+# async def goof(*args):
+#     """show goof"""
+#     requested = args
+#     gooflist = os.listdir("./goofs")
+#     if len(requested) != 0:
+#         for request in requested:
+#             if request in gooflist:
+#                 await bot.upload("./goofs/"+request)
+#             else:
+#                 await bot.say("Use >>goofs to see a list of accepted goofs.")
+#     else:
+#         await bot.upload("./goofs/"+random.choice(gooflist))
+
 @bot.command()
 async def goof(*args):
     """show goof"""
     requested = args
-    gooflist = os.listdir("./goofs")
+    gooflist = {a.lower(): a for a in os.listdir("./goofs")}
     if len(requested) != 0:
         for request in requested:
-            if request in gooflist:
-                await bot.upload("./goofs/"+request)
-            else:
+            file_extension_or_not_pattern = re.compile('(\.[a-z]+)?$', re.I | re.M)
+            found = False
+            for extension in ['.png']:
+                request_file = file_extension_or_not_pattern.sub(extension, request).lower()
+                if request_file in gooflist:
+                    found = True
+                    await bot.upload("./goofs/"+gooflist[request_file])
+            if not found:
                 await bot.say("Use >>goofs to see a list of accepted goofs.")
     else:
-        await bot.upload("./goofs/"+random.choice(gooflist))
+        await bot.upload("./goofs/"+random.choice([a for a in gooflist.values()]))
 
 @bot.command()
 async def ew():

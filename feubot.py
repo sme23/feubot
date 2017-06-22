@@ -205,7 +205,7 @@ async def goldmine():
 
 @bot.command()
 async def hit(number, type="1RN"):
-    """rolls hit or miss (e.g. >>hit 50 1rn/2rn/fates)"""
+    """rolls hit or miss (e.g. >>hit 50 1rn[default]/2rn/fates)"""
     try:
         num = int(number)
     except ValueError:
@@ -244,6 +244,15 @@ async def whois(*args):
         else:
             blord = 'b'+lord
         await bot.say(lord + " is our " + blord)
+
+@bot.command()
+async def spritans():
+    """REEE"""
+    await bot.say("muh")
+    await asyncio.sleep(1)
+    await bot.say("SPRITANS")
+    await asyncio.sleep(2)
+    await bot.say("***REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE***")
 
 @bot.command()
 async def createwaifu(*args):

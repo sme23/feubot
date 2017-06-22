@@ -230,7 +230,11 @@ async def whois(*args):
     """roy is our boy"""
     if len(args) > 0:
         lord = ' '.join(args)
-        await bot.say(lord + " is our b" + lord[1:])
+        if lord[0].lower() in ['a', 'e', 'i', 'o', 'u', 'y']:
+            blord = 'b'+lord
+        else:
+            blord = 'b'+lord[1:]
+        await bot.say(lord + " is our " + blord)
 
 @bot.command()
 async def createwaifu(*args):

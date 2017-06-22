@@ -230,10 +230,10 @@ async def whois(*args):
     """roy is our boy"""
     if len(args) > 0:
         lord = ' '.join(args)
-        if lord[0].lower() in ['a', 'e', 'i', 'o', 'u', 'y']:
-            blord = 'b'+lord
-        else:
+        if lord[0].lower() in 'bcdfghjklmnpqrstvwxz':
             blord = 'b'+lord[1:]
+        else:
+            blord = 'b'+lord
         await bot.say(lord + " is our " + blord)
 
 @bot.command()

@@ -230,10 +230,13 @@ async def whois(*args):
     """roy is our boy"""
     if len(args) > 0:
         lord = ' '.join(args)
-        if (lord.lower() == 'circles') or (lord.lower() == 'circleseverywhere'):
+        if (lord.lower() in == ['circles','circleseverywhere']):
             await bot.say(lord + " is my dad")
             return
-        if lord[0].lower() in 'bcdfghjklmnpqrstvwxz':
+        elif (lord.lower() == 'feditor'):
+            await bot.say("`" + lord + " a shit`")
+            return
+        elif lord[0].lower() in 'bcdfghjklmnpqrstvwxz':
             blord = 'b'+lord[1:]
         else:
             blord = 'b'+lord

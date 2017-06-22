@@ -9,12 +9,12 @@ import urllib.error
 import os
 import json
 
-# bot = commands.Bot(command_prefix=['>>', 'feubot '], description='this is feubot.')
+bot = commands.Bot(command_prefix=['!', '>>', 'feubot '], description='this is feubot.')
 
-bot = commands.Bot(command_prefix=['##', 'feubeta '], description='this is feubot beta.')
+# bot = commands.Bot(command_prefix=['##', 'feubeta '], description='this is feubot beta.')
 
 def trunc_to(ln, s):
-    if len(s) >= ln: return s
+    if len(s) <= ln: return s
     else: return s[:ln-3] + "..."
 
 def highlight(s, term):
@@ -31,7 +31,8 @@ def create_embed(posts, threads, term):
     feu_search_base = "http://feuniverse.us/search?q=%s"
     feu_post_base = "http://feuniverse.us/t/{}/{}"
     searchtext = urllib.parse.unquote(term)
-    numresults = 3
+    
+    numresults = 5
 
     result = discord.Embed(
             title='Search results for "%s"' % urllib.parse.unquote(term),
@@ -41,9 +42,9 @@ def create_embed(posts, threads, term):
     for i,post in enumerate(posts[:numresults]):
         result.add_field(
                 name=capitalise(
-                    'Post in "%s" by %s' % (threads[i]["title"], post["name"])
+                    'Post in "%s" by %s' % (threads[i]["title"], post["username"])
                     ,searchtext),
-                value="[%s](%s)" %
+                value="[%s](%s)" % 
                     (highlight(trunc_to(50, post["blurb"]), searchtext),
                     feu_post_base.format(post["topic_id"], post["post_number"])),
                 inline=False)
@@ -72,6 +73,8 @@ async def search(*, term):
             await bot.say(embed=create_embed(posts, threads, payload))
         except urllib.error.URLError:
             await bot.say("Error accessing FEU server, please try again later.")
+        except KeyError:
+            await bot.say(embed=create_embed(posts, [], payload))
 
 @bot.command()
 async def donate():
@@ -119,6 +122,28 @@ async def goof(*args):
         await bot.upload("./goofs/"+random.choice(gooflist))
 
 @bot.command()
+async def ew():
+    """disgusting"""
+    barflist = os.listdir("./disgusting")
+    await bot.upload("./disgusting/"+random.choice(barflist))
+
+@bot.command()
+async def casual():
+    """just play phoenix"""
+    barflist = os.listdir("./casual")
+    await bot.upload("./casual/"+random.choice(barflist))
+
+@bot.command()
+async def crackers():
+    """jumping boat monkeys!"""
+    await bot.upload("./Holy_crackers.png")
+
+@bot.command()
+async def hector():
+    """judges you"""
+    await bot.upload("./hectorpc.png")
+
+@bot.command()
 async def erin():
     """ERIN INTENSIFIES"""
     await bot.upload("./erinyous.gif")
@@ -129,9 +154,74 @@ async def fury():
     await bot.say("Don't you mean `>>erin`?")
 
 @bot.command()
+async def goldmine():
+    """everything you ever wanted"""
+    await bot.say("https://www.dropbox.com/sh/xl73trcck2la799/AAAMdpNSGQWEzYkLEQEiEhGFa?dl=0")
+
+@bot.command()
+async def hit(number, type="1RN"):
+    """rolls hit or miss (e.g. >>hit 50 1rn/2rn/fates)"""
+    try:
+        num = int(number)
+    except ValueError:
+        await bot.say("Specify a number 0-100")
+        return
+    if type.upper()=="1RN":
+        rolled = random.randint(1,100)
+    elif type.upper()=="2RN":
+        rolled = (random.randint(1,100) + random.randint(1,100))>>1
+    elif type.upper()=="FATES":
+        rolled = random.randint(1,100)
+        if rolled > 50:
+            rolled = ((rolled*3) + random.randint(1,100))>>2
+    else:
+        await bot.say("Valid types are 1RN, 2RN, Fates")
+        return
+    if rolled <= num: await bot.say("HIT (%d)" % rolled)
+    else: await bot.say("MISS (%d)" % rolled)
+
+@bot.command()
+async def createwaifu(*args):
+    """:wink:"""
+    heads = [
+        "<:zigludo:252132877678936064>", 
+        "<:zahlman:230166256412655616>", 
+        "<:narcian:271805925017387008>", 
+        "<:marf:230171669635923968>", 
+        "<:lloydwut:313590046978605059>", 
+        "<:linde:325036388833558539>", 
+        "<:lilina:230156179916062720>", 
+        "<:kent:232283653642780672>", 
+        "<:kaga:293121861905022976>", 
+        "<:ick:280744571640610816>", 
+        "<:florina:230904896067469312>", 
+        "<:FEU:230151584846184448>", 
+        "<:fa:303774076252454912>", 
+        "<:elise:235616193065517066>", 
+        "<:eliwood:232283812938121217>", 
+        "<:elbert:232283825974149120>", 
+        "<:EAmoe:317182514559188994>", 
+        "<:doot:324593825815461889>", 
+        "<:donate:230166446146191362>", 
+        "<:doc:280527122802540544>", 
+        "<:colorz:230159530158194688>", 
+        "<:circles:238177111418863617>", 
+        "<:celica:272027128231362571>", 
+        "<:BBQ:230169373694885888>", 
+        "<:arch_mini:230160993299202068>", 
+        "<:cam_thumb:307559627573428224>", 
+        "<:dat:292422389197701121>", 
+        "<:thighs:294965155819683840>"]
+    if len(args) > 0: head = ' '.join(args)
+    else: head = random.choice(heads)
+    await bot.say(head + """
+<:personality:274564774979960832>
+<:thighs:294965155819683840>""")
+
+@bot.command()
 async def doot():
     """doot doot"""
-    flip = random.randint(0,1)
+    flip = random.choice([0,1])
     if flip ==1:
         await bot.say("""<:doot:324593825815461889> <:doot:324593825815461889> :trumpet: :trumpet: :trumpet: <:doot:324593825815461889> :trumpet: :trumpet: :trumpet: <:doot:324593825815461889> :trumpet: :trumpet: <:doot:324593825815461889> <:doot:324593825815461889> <:doot:324593825815461889>
 <:doot:324593825815461889> :trumpet: <:doot:324593825815461889> :trumpet: <:doot:324593825815461889> :trumpet: <:doot:324593825815461889> :trumpet: <:doot:324593825815461889> :trumpet: <:doot:324593825815461889> :trumpet: :trumpet: <:doot:324593825815461889> :trumpet:

@@ -9,9 +9,9 @@ import urllib.error
 import os
 import json
 
-bot = commands.Bot(command_prefix=['!', '>>', 'feubot '], description='this is feubot.')
+#bot = commands.Bot(command_prefix=['!', '>>', 'feubot '], description='this is feubot.')
 
-# bot = commands.Bot(command_prefix=['##', 'feubeta '], description='this is feubot beta.')
+bot = commands.Bot(command_prefix=['##', 'feubeta '], description='this is feubot beta.')
 
 def trunc_to(ln, s):
     if len(s) <= ln: return s
@@ -27,29 +27,38 @@ def capitalise(s, term):
     output = re.sub(r'(%s)' % '|'.join(to_bold), lambda match: r'{}'.format(match.group(1).upper()), s, flags=re.IGNORECASE)
     return output
 
+def linkify(searchtext):
+    feu_post_base = "http://feuniverse.us/t/{}/{}"
+    def result(data):
+        post, thread = data
+        title = capitalise(thread['title'], searchtext)
+        blurb = highlight(trunc_to(50,post['blurb']), searchtext)
+        link = '[Post in %s](%s)' % (
+                title,
+                feu_post_base.format(post['topic_id'], post['post_number']))
+        threadline = '**%s by %s**' % (link, post['username'])
+        return threadline + '\n' + blurb
+    return result
+
 def create_embed(posts, threads, term):
     feu_search_base = "http://feuniverse.us/search?q=%s"
-    feu_post_base = "http://feuniverse.us/t/{}/{}"
     searchtext = urllib.parse.unquote(term)
-    
+
     numresults = 5
 
     result = discord.Embed(
             title='Search results for "%s"' % urllib.parse.unquote(term),
             url=feu_search_base % term,
-            description="Found %d results" % len(posts),
             color=0xde272c)
-    for i,post in enumerate(posts[:numresults]):
-        result.add_field(
-                name=capitalise(
-                    'Post in "%s" by %s' % (threads[i]["title"], post["username"])
-                    ,searchtext),
-                value="[%s](%s)" % 
-                    (highlight(trunc_to(50, post["blurb"]), searchtext),
-                    feu_post_base.format(post["topic_id"], post["post_number"])),
-                inline=False)
+    innerEmbed = '\n\n'.join(
+            map(linkify(searchtext),zip(posts[:numresults],threads)))
+    result.add_field(
+            name='Found %d result(s)' % len(posts),
+            value=innerEmbed,
+            inline=False)
     if len(posts) > numresults:
-        result.set_footer(text="Truncated %d result(s)." % (len(posts)-numresults))
+        result.set_footer(
+                text="Truncated %d result(s)." % (len(posts)-numresults))
     return result
 
 @bot.event

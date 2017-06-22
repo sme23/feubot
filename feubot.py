@@ -17,9 +17,9 @@ def trunc_to(ln, s):
     if len(s) <= ln: return s
     else: return s[:ln-3] + "..."
 
-def highlight(s, term):
+def highlight(s, term, type='**'):
     to_bold = term.split(' ')
-    output = re.sub(r'(%s)' % '|'.join(to_bold), r'**\1**', s, flags=re.IGNORECASE)
+    output = re.sub(r'(%s)' % '|'.join(to_bold), (type + r'\1' + type), s, flags=re.IGNORECASE)
     return output
 
 def capitalise(s, term):
@@ -31,12 +31,12 @@ def linkify(searchtext):
     feu_post_base = "http://feuniverse.us/t/{}/{}"
     def result(data):
         post, thread = data
-        title = capitalise(thread['title'], searchtext)
+        title = highlight(thread['title'], searchtext, '*')
         blurb = highlight(trunc_to(50,post['blurb']), searchtext)
         link = '[Post in %s](%s)' % (
                 title,
                 feu_post_base.format(post['topic_id'], post['post_number']))
-        threadline = '**%s by %s**' % (link, post['username'])
+        threadline = '**%s by %s**' % (link, highlight(post['username'], searchtext, '*'))
         return threadline + '\n' + blurb
     return result
 

@@ -128,7 +128,10 @@ async def goof(*args):
     requested = args
     gooflist = {a.lower(): a for a in os.listdir("./goofs")}
     if len(requested) != 0:
+        maxgoofs = 5
         for request in requested:
+            if maxgoofs == 0: return
+            else: maxgoofs -= 1
             file_extension_or_not_pattern = re.compile('(\.[a-z]+)?$', re.I | re.M)
             found = False
             for extension in ['.png']:

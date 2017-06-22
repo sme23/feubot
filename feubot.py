@@ -209,7 +209,10 @@ async def hit(number, type="1RN"):
     try:
         num = int(number)
     except ValueError:
-        await bot.say("Specify a number 0-100")
+        await bot.say("Specify an integer 0-100")
+        return
+    if (num < 0) or (num > 100):
+        await bot.say("Specify an integer 0-100")
         return
     if type.upper()=="1RN":
         rolled = random.randint(1,100)

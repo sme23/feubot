@@ -230,7 +230,7 @@ async def whois(*args):
     """roy is our boy"""
     if len(args) > 0:
         lord = ' '.join(args)
-        if lord.lower() == 'circles' or 'circleseverywhere':
+        if (lord.lower() == 'circles') or (lord.lower() == 'circleseverywhere'):
             await bot.say(lord + " is my dad")
             return
         if lord[0].lower() in 'bcdfghjklmnpqrstvwxz':

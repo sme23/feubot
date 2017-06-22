@@ -105,7 +105,8 @@ async def arch():
 @bot.command()
 async def goofs():
     """list goofs"""
-    await bot.say("```"+"\n".join(map(str, os.listdir("./goofs")))+"```")
+    filenameslist = [os.path.splitext(f)[0] for f in os.listdir("./goofs")]
+    await bot.say("```"+"\n".join(map(str, filenameslist))+"```")
 
 # @bot.command()
 # async def goof(*args):

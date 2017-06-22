@@ -134,7 +134,7 @@ async def goof(*args):
             else: maxgoofs -= 1
             file_extension_or_not_pattern = re.compile('(\.[a-z]+)?$', re.I | re.M)
             found = False
-            for extension in ['.png']:
+            for extension in ['.png', '.jpg', '.gif', '.jpeg']:
                 request_file = file_extension_or_not_pattern.sub(extension, request).lower()
                 if request_file in gooflist:
                     found = True
@@ -145,10 +145,32 @@ async def goof(*args):
         await bot.upload("./goofs/"+random.choice([a for a in gooflist.values()]))
 
 @bot.command()
-async def ew():
+async def ews():
+    """disgusting list"""
+    filenameslist = [os.path.splitext(f)[0] for f in os.listdir("./disgusting")]
+    await bot.say("```"+"\n".join(map(str, filenameslist))+"```")
+
+@bot.command()
+async def ew(*args):
     """disgusting"""
-    barflist = os.listdir("./disgusting")
-    await bot.upload("./disgusting/"+random.choice(barflist))
+    requested = args
+    ewlist = {a.lower(): a for a in os.listdir("./disgusting")}
+    if len(requested) != 0:
+        maxews = 5
+        for request in requested:
+            if maxews == 0: return
+            else: maxews -= 1
+            file_extension_or_not_pattern = re.compile('(\.[a-z]+)?$', re.I | re.M)
+            found = False
+            for extension in ['.png', '.jpg', '.gif', '.jpeg']:
+                request_file = file_extension_or_not_pattern.sub(extension, request).lower()
+                if request_file in ewlist:
+                    found = True
+                    await bot.upload("./disgusting/"+ewlist[request_file])
+            if not found:
+                await bot.say("Use >>ews to see a list of accepted names.")
+    else:
+        await bot.upload("./disgusting/"+random.choice([a for a in ewlist.values()]))
 
 @bot.command()
 async def casual():

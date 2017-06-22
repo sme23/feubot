@@ -9,9 +9,9 @@ import urllib.error
 import os
 import json
 
-#bot = commands.Bot(command_prefix=['!', '>>', 'feubot '], description='this is feubot.')
+bot = commands.Bot(command_prefix=['!', '>>', 'feubot '], description='this is feubot.')
 
-bot = commands.Bot(command_prefix=['##', 'feubeta '], description='this is feubot beta.')
+# bot = commands.Bot(command_prefix=['##', 'feubeta '], description='this is feubot beta.')
 
 def trunc_to(ln, s):
     if len(s) <= ln: return s

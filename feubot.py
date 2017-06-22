@@ -31,6 +31,7 @@ def create_embed(posts, threads, term):
     feu_search_base = "http://feuniverse.us/search?q=%s"
     feu_post_base = "http://feuniverse.us/t/{}/{}"
     searchtext = urllib.parse.unquote(term)
+    
     numresults = 5
 
     result = discord.Embed(
@@ -229,6 +230,16 @@ async def doot():
 <:doot:324593825815461889> <:doot:324593825815461889> :trumpet: :trumpet: :trumpet: <:doot:324593825815461889> :trumpet: :trumpet: :trumpet: <:doot:324593825815461889> :trumpet: :trumpet: :trumpet: <:doot:324593825815461889> :trumpet:""")
     else:
         await bot.upload("./DOOT.png")
+
+@bot.command()
+async def ea():
+    """EVERYTHING ASSEMBLER"""
+    everythingassemblerstring = """``` _____                 _   _   _            _____                   _   _
+|   __|_ _ ___ ___ _ _| |_| |_|_|___ ___   |  _  |___ ___ ___ _____| |_| |___ ___
+|   __| | | -_|  _| | |  _|   | |   | . |  |     |_ -|_ -| -_|     | . | | -_|  _|
+|_____|\_/|___|_| |_  |_| |_|_|_|_|_|_  |  |__|__|___|___|___|_|_|_|___|_|___|_|
+                  |___|             |___|```"""
+    await bot.say(everythingassemblerstring)
 
 token = os.environ.get('TOKEN', default=None)
 if token is None:

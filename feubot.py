@@ -226,6 +226,13 @@ async def hit(number, type="1RN"):
     else: await bot.say("MISS (%d)" % rolled)
 
 @bot.command()
+async def whois(*args):
+    """roy is our boy"""
+    if len(args) > 0:
+        lord = ' '.join(args)
+        await bot.say(lord + " is our b" + lord[1:])
+
+@bot.command()
 async def createwaifu(*args):
     """:wink:"""
     heads = [

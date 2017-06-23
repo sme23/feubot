@@ -210,8 +210,9 @@ async def fury():
 @bot.command()
 async def goldmine():
     """everything you ever wanted"""
-    await bot.say("https://www.dropbox.com/sh/xl73trcck2la799/AAAMdpNSGQWEzYkLEQEiEhGFa?dl=0")
-
+    embed=discord.Embed(title="**Unified FE Hacking Dropbox**", url='https://www.dropbox.com/sh/xl73trcck2la799/AAAMdpNSGQWEzYkLEQEiEhGFa?dl=0', description="All the hacking resources you could ever need, in one place", color=0xefba01)
+    embed.set_thumbnail(url='http://i.imgur.com/Bg5NSga.png')
+    await bot.say(embed=embed)
 @bot.command()
 async def hit(number, type="1RN"):
     """rolls hit or miss (e.g. >>hit 50 1rn[default]/2rn/fates)"""

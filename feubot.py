@@ -7,9 +7,9 @@ import os
 
 import useful, memes, reactions
 
-# bot = commands.Bot(command_prefix=['!', '>>', 'feubot '], description='this is feubot.')
+bot = commands.Bot(command_prefix=['!', '>>', 'feubot '], description='this is feubot.')
 
-bot = commands.Bot(command_prefix=['##', 'feubeta '], description='this is feubot beta.')
+# bot = commands.Bot(command_prefix=['##', 'feubeta '], description='this is feubot beta.')
 
 @bot.event
 async def on_ready():

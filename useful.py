@@ -79,10 +79,13 @@ class Useful:
         root = "http://feuniverse.us/search.json?q=%s"
         payload = urllib.parse.quote(term)
 
-        async with aiohttp.get(root % payload) as query:
-        # with urllib.request.urlopen(root % payload) as query:
-            if query.status == 200:
-                data = await query.json()
+        async with aiohttp.ClientSession() as session:
+            async with session.get(root % payload) as response:
+                data = await response.json()
+        # async with aiohttp.get(root % payload) as query:
+        # # with urllib.request.urlopen(root % payload) as query:
+        #     if query.status == 200:
+        #         data = await query.json()
             try:
                 # data = json.loads(js.read().decode())
                 posts = data["posts"]

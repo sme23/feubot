@@ -95,7 +95,7 @@ async def ut2():
     """links ultimate tutorial v2"""
     embed=discord.Embed(title="Fire Emblem Hacking Ultimate Tutorial v2", url='https://stackedit.io/viewer#!provider=gist&gistId=084645b0690253600f4aa2a57b76a105&filename=feutv2', description="How to do everything with Event Assembler buildfiles", color=0x40caf2)
     await bot.say(embed=embed)
-    
+
 @bot.command()
 async def reply():
     """r e p l y s o o n"""
@@ -211,7 +211,7 @@ async def fury():
 @bot.command()
 async def goldmine():
     """everything you ever wanted"""
-    embed=discord.Embed(title="**Unified FE Hacking Dropbox**", url='https://www.dropbox.com/sh/xl73trcck2la799/AAAMdpNSGQWEzYkLEQEiEhGFa?dl=0', description="All the hacking resources you could ever need, in one place", color=0xefba01)
+    embed=discord.Embed(title="Unified FE Hacking Dropbox", url='https://www.dropbox.com/sh/xl73trcck2la799/AAAMdpNSGQWEzYkLEQEiEhGFa?dl=0', description="All the hacking resources you could ever need, in one place", color=0xefba01)
     # embed.set_thumbnail(url='http://i.imgur.com/Bg5NSga.png')
     await bot.say(embed=embed)
 @bot.command()

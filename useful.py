@@ -29,7 +29,7 @@ def linkify(searchtext):
     def result(data):
         post, thread = data
         title = highlight(thread['title'], searchtext, '*')
-        blurb = highlight(trunc_to(50,post['blurb']), searchtext)
+        blurb = highlight(trunc_to(100, post['blurb']), searchtext)
         link = '[Post in %s](%s)' % (
                 title,
                 feu_post_base.format(post['topic_id'], post['post_number']))
@@ -41,7 +41,7 @@ def create_embed(posts, threads, term):
     feu_search_base = "http://feuniverse.us/search?q=%s"
     searchtext = urllib.parse.unquote(term)
 
-    numresults = 5
+    numresults = 3
 
     result = discord.Embed(
             title='Search results for "%s"' % urllib.parse.unquote(term),

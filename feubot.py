@@ -91,10 +91,11 @@ async def donate():
     await bot.say("https://donorbox.org/donate-to-circles")
 
 @bot.command()
-async def UT2():
+async def ut2():
     """links ultimate tutorial v2"""
     embed=discord.Embed(title="Fire Emblem Hacking Ultimate Tutorial v2", url='https://stackedit.io/viewer#!provider=gist&gistId=084645b0690253600f4aa2a57b76a105&filename=feutv2', description="How to do everything with Event Assembler buildfiles", color=0x40caf2)
     await bot.say(embed=embed)
+    
 @bot.command()
 async def reply():
     """r e p l y s o o n"""

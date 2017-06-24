@@ -115,7 +115,7 @@ class Memes:
         else:
             await self.bot.upload("./DOOT.png")
 
-    @bot.command()
+    @bot.command(aliases=["eventassembler", "everythingassembler"])
     async def ea(self):
         """EVERYTHING ASSEMBLER"""
         everythingassemblerstring = """``` _____                 _   _   _         

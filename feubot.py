@@ -6,8 +6,9 @@ import random
 import os
 
 import helpful, memes, reactions
+from feubotFormatter import FeubotFormatter
 
-bot = commands.Bot(command_prefix=['!', '>>', 'feubot '], description='this is feubot.')
+bot = commands.Bot(command_prefix=['!', '>>', 'feubot '], description='this is feubot.', formatter = FeubotFormatter())
 
 # bot = commands.Bot(command_prefix=['##', 'feubeta '], description='this is feubot beta.')
 

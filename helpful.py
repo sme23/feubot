@@ -61,17 +61,44 @@ def create_embed(posts, threads, term):
                 text="Truncated %d result(s)." % (len(posts)-numresults))
     return result
 
-class Useful:
-    """Actually useful commands"""
+class Helpful:
+    """Actually Helpful commands"""
 
     def __init__(self, bot):
         self.bot = bot
 
+
     @bot.command()
-    async def ut2(self):
-        """links ultimate tutorial v2"""
-        embed=discord.Embed(title="Fire Emblem Hacking Ultimate Tutorial v2", url='https://stackedit.io/viewer#!provider=gist&gistId=084645b0690253600f4aa2a57b76a105&filename=feutv2', description="How to do everything with Event Assembler buildfiles", color=0x40caf2)
+    async def goldmine(self):
+        """everything you ever wanted"""
+        embed=discord.Embed(title="Unified FE Hacking Dropbox", url='https://www.dropbox.com/sh/xl73trcck2la799/AAAMdpNSGQWEzYkLEQEiEhGFa?dl=0', description="All the hacking resources you could ever need, in one place", color=0xefba01)
+        # embed.set_thumbnail(url='http://i.imgur.com/Bg5NSga.png')
         await self.bot.say(embed=embed)
+
+    @bot.command()
+    async def hit(self, number, type="1RN"):
+        """rolls hit or miss (e.g. >>hit 50 1rn[default]/2rn/fates)"""
+        try:
+            num = int(number)
+        except ValueError:
+            await self.bot.say("Specify an integer 0-100")
+            return
+        if (num < 0) or (num > 100):
+            await self.bot.say("Specify an integer 0-100")
+            return
+        if type.upper()=="1RN":
+            rolled = random.randint(1,100)
+        elif type.upper()=="2RN":
+            rolled = (random.randint(1,100) + random.randint(1,100))>>1
+        elif type.upper()=="FATES":
+            rolled = random.randint(1,100)
+            if rolled > 50:
+                rolled = ((rolled*3) + random.randint(1,100))>>2
+        else:
+            await self.bot.say("Valid types are 1RN, 2RN, Fates")
+            return
+        if rolled <= num: await bot.say("HIT (%d)" % rolled)
+        else: await self.bot.say("MISS (%d)" % rolled)
 
     @bot.command()
     async def search(self, *, term):
@@ -100,38 +127,12 @@ class Useful:
                 except discord.errors.HTTPException:
                     print(embedded.title)
 
-
     @bot.command()
-    async def goldmine(self):
-        """everything you ever wanted"""
-        embed=discord.Embed(title="Unified FE Hacking Dropbox", url='https://www.dropbox.com/sh/xl73trcck2la799/AAAMdpNSGQWEzYkLEQEiEhGFa?dl=0', description="All the hacking resources you could ever need, in one place", color=0xefba01)
-        # embed.set_thumbnail(url='http://i.imgur.com/Bg5NSga.png')
+    async def ut2(self):
+        """links ultimate tutorial v2"""
+        embed=discord.Embed(title="Fire Emblem Hacking Ultimate Tutorial v2", url='https://stackedit.io/viewer#!provider=gist&gistId=084645b0690253600f4aa2a57b76a105&filename=feutv2', description="How to do everything with Event Assembler buildfiles", color=0x40caf2)
         await self.bot.say(embed=embed)
-    @bot.command()
-    async def hit(self, number, type="1RN"):
-        """rolls hit or miss (e.g. >>hit 50 1rn[default]/2rn/fates)"""
-        try:
-            num = int(number)
-        except ValueError:
-            await self.bot.say("Specify an integer 0-100")
-            return
-        if (num < 0) or (num > 100):
-            await self.bot.say("Specify an integer 0-100")
-            return
-        if type.upper()=="1RN":
-            rolled = random.randint(1,100)
-        elif type.upper()=="2RN":
-            rolled = (random.randint(1,100) + random.randint(1,100))>>1
-        elif type.upper()=="FATES":
-            rolled = random.randint(1,100)
-            if rolled > 50:
-                rolled = ((rolled*3) + random.randint(1,100))>>2
-        else:
-            await self.bot.say("Valid types are 1RN, 2RN, Fates")
-            return
-        if rolled <= num: await bot.say("HIT (%d)" % rolled)
-        else: await self.bot.say("MISS (%d)" % rolled)
 
 
 def setup(bot):
-    bot.add_cog(Useful(bot))
+    bot.add_cog(Helpful(bot))

@@ -5,7 +5,7 @@ import re
 import random
 import os
 
-import useful, memes, reactions
+import helpful, memes, reactions
 
 bot = commands.Bot(command_prefix=['!', '>>', 'feubot '], description='this is feubot.')
 
@@ -28,9 +28,9 @@ token = os.environ.get('TOKEN', default=None)
 if token is None:
     token = open('./token').read().replace('\n','')
 
-useful.setup(bot)
-memes.setup(bot)
 reactions.setup(bot)
+memes.setup(bot)
+helpful.setup(bot)
 
 bot.run(token)
 

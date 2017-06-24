@@ -76,8 +76,8 @@ class Helpful:
         await self.bot.say(embed=embed)
 
     @bot.command()
-    async def hit(self, number, type="1RN"):
-        """rolls hit or miss (e.g. >>hit 50 1rn[default]/2rn/fates)"""
+    async def hit(self, number, type="2RN"):
+        """rolls hit or miss (e.g. >>hit 50 1rn/2rn[default]/fates)"""
         try:
             num = int(number)
         except ValueError:
@@ -127,7 +127,7 @@ class Helpful:
                 except discord.errors.HTTPException:
                     print(embedded.title)
 
-    @bot.command()
+    @bot.command(aliases=["UT2"])
     async def ut2(self):
         """links ultimate tutorial v2"""
         embed=discord.Embed(title="Fire Emblem Hacking Ultimate Tutorial v2", url='https://stackedit.io/viewer#!provider=gist&gistId=084645b0690253600f4aa2a57b76a105&filename=feutv2', description="How to do everything with Event Assembler buildfiles", color=0x40caf2)

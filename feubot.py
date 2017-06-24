@@ -10,7 +10,7 @@ from feubotFormatter import FeubotFormatter
 
 bot = commands.Bot(command_prefix=['!', '>>', 'feubot '], description='this is feubot.', formatter = FeubotFormatter())
 
-# bot = commands.Bot(command_prefix=['##', 'feubeta '], description='this is feubot beta.')
+# bot = commands.Bot(command_prefix=['##', 'feubeta '], description='this is feubot beta.', formatter = FeubotFormatter())
 
 @bot.event
 async def on_ready():

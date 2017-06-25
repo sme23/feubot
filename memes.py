@@ -145,8 +145,8 @@ class Memes:
         """2 FAST 2 FURYOUS"""
         await self.bot.say("Don't you mean `>>erin`?")
     
-    @bot.command(aliases=["f"])
-    async def respects(self):
+    @bot.command(aliases=["f", 'respects'])
+    async def F(self):
         """Press F to pay respects."""
         await self.bot.upload("./respects.jpeg")
 

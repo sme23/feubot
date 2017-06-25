@@ -148,7 +148,7 @@ class Memes:
     @bot.command(aliases=["f"])
     async def respects(self):
         """Press F to pay respects."""
-        await self.bot.upload("./respects.png")
+        await self.bot.upload("./respects.jpeg")
 
 
 def setup(bot):

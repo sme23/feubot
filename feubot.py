@@ -4,13 +4,16 @@ import asyncio
 import re
 import random
 import os
+from sys import argv
 
 import helpful, memes, reactions
 from feubotFormatter import FeubotFormatter
 
-bot = commands.Bot(command_prefix=['!', '>>', 'feubot '], description='this is feubot.', formatter = FeubotFormatter())
+if len(argv) > 1 and "--debug" in argv:
+   bot = commands.Bot(command_prefix=['##', 'feubeta '], description='this is feubot beta.', formatter = FeubotFormatter()) 
+else:
+    bot = commands.Bot(command_prefix=['!', '>>', 'feubot '], description='this is feubot.', formatter = FeubotFormatter())
 
-# bot = commands.Bot(command_prefix=['##', 'feubeta '], description='this is feubot beta.')
 
 @bot.event
 async def on_ready():

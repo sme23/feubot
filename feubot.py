@@ -10,8 +10,8 @@ import helpful, memes, reactions
 from feubotFormatter import FeubotFormatter
 
 if __name__ == "__main__":
-    if len(argv) > 1 and "--debug" in argv:
-    bot = commands.Bot(command_prefix=['##', 'feubeta '], description='this is feubot beta.', formatter = FeubotFormatter()) 
+    if "--debug" in argv:
+        bot = commands.Bot(command_prefix=['##', 'feubeta '], description='this is feubot beta.', formatter = FeubotFormatter()) 
     else:
         bot = commands.Bot(command_prefix=['!', '>>', 'feubot '], description='this is feubot.', formatter = FeubotFormatter())
 

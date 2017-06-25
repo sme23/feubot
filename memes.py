@@ -58,6 +58,9 @@ class Memes:
             elif (lord.lower() == 'feditor'):
                 await self.bot.say("`" + lord + " a shit`")
                 return
+            elif (lord.lower() == 'ea'):
+                await self.bot.say("`" + lord + " is our bae`")
+                return
             elif lord[0].lower() in 'bcdfghjklmnpqrstvwxz':
                 blord = 'b'+lord[1:]
             else:

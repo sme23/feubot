@@ -15,11 +15,6 @@ if __name__ == "__main__":
     else:
         bot = commands.Bot(command_prefix=['!', '>>', 'feubot '], description='this is feubot.', formatter = FeubotFormatter())
 
-<<<<<<< HEAD
-# bot = commands.Bot(command_prefix=['##', 'feubeta '], description='this is feubot beta.', formatter = FeubotFormatter())
-=======
->>>>>>> origin/master
-
     @bot.event
     async def on_ready():
         print('Logged in as')

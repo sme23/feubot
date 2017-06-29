@@ -127,6 +127,11 @@ class Memes:
         else:
             await self.bot.upload("./DOOT.png")
 
+    @bot.command()
+    async def lol(self):
+        """(lol"""
+        await self.bot.upload("./Water_lol.png")
+
     @bot.command(aliases=["eventassembler", "everythingassembler"])
     async def ea(self):
         """EVERYTHING ASSEMBLER"""

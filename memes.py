@@ -127,10 +127,12 @@ class Memes:
         else:
             await self.bot.upload("./DOOT.png")
 
-    @bot.command()
+    @bot.command(aliases=["(lol"])
     async def lol(self):
         """(lol"""
-        await self.bot.upload("./Water_lol.png")
+        flip = random.choice([0,1])
+        if flip==1: await self.bot.upload("./Water_lol.png")
+        else: await self.bot.upload("./Water_lol2.png")
 
     @bot.command(aliases=["eventassembler", "everythingassembler"])
     async def ea(self):
@@ -166,6 +168,8 @@ class Memes:
     async def F(self):
         """Press F to pay respects."""
         await self.bot.upload("./respects.jpeg")
+
+    #TODO: HUBBA TESTER
 
 
 def setup(bot):

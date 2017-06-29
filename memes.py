@@ -14,6 +14,12 @@ class Memes:
         await self.bot.say("reply :soon: :smile:")
 
     @bot.command()
+    async def whattime(self):
+        """tells the time"""
+        await self.bot.say("`it's tiki time`")
+
+
+    @bot.command()
     async def arch(self):
         """do something with arch"""
         direction = random.choice([":arrow_down:", ":arrow_up:"])

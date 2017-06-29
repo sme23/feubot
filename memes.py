@@ -204,10 +204,9 @@ class Memes:
             elif rtl_type==bad_responses: reaction_type = mutual_bad
 
         reaction = random.choice(reaction_type)
-        msg = """```
-{person1} --{ltr}-> {person2}
-{person1} <-{rtl}-- {person2}```
-{reaction}""".format(person1=person1,person2=person2,ltr=ltr,rtl=rtl,reaction=reaction)
+        msg = """{person1} `--{ltr}->` {person2}
+{person1} `<-{rtl}--` {person2}```
+{reaction}```""".format(person1=person1,person2=person2,ltr=ltr,rtl=rtl,reaction=reaction)
         await self.bot.say(msg)
 
 def setup(bot):

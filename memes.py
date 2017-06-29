@@ -170,7 +170,45 @@ class Memes:
         await self.bot.upload("./respects.jpeg")
 
     #TODO: HUBBA TESTER
+    @bot.command()
+    async def hubba(self, person1, person2):
+        """discover their true feelings"""
+        best_responses = ("About to swoon","Always staring","Carries a torch for","Desires attention","Devoted","Drawn by destiny","Drools openly","Fatal attraction","First love","Has a sweet spot","Head over heels","Heart aflutter","Infatuated","Lives and dies for","Loins afire","Lost in pheromones","Lovey Dovey","Never wants to part","One-track mind","Possesive","Puts on a pedestal","Separation anxiety","Smitten","True love","True sacrificer","Uses pet names","Wants to snuggle","Way too attached","Would give anything","Would hold hands")
+        good_responses = ("Admires lifestyle","Always entertained","Best friend","Budding friendship","Comrade","Confessor","Easy to joke with","Feels safe","Finds agreeable","Fun to train with","Good friend","Into the same foods","Like minded","Low maintenance","Not a dull moment","On the same page","Relaxed around","Same wavelength","Sees potential","Shopping buddy","Similar hobbies","Sparring partner","Thinks highly of","Total respect","Totally platonic","Trusts implicitly","Ultimate duo")
+        bad_responses = ("Avoids eye contact","Awkward","Bad chemistry","Bad teamwork","Cold shoulder","Dislikes","Dreads meeting","Expects betrayal","Fashion disaster","Feigns friendship","Finds freaky","Finds irritating","Friend zone","Indifferent","Intimidated","Into different things","Keeping a distance","No ear for music","Not interested","Not into the hair","Nothing in common","Nothing to say","On eggshells","Oil and water","Out of whack","Touch-and-go","Utterly baffled","Weirded Out")
+        response_types = (best_responses, good_responses, bad_responses)
 
+        mutual_best = ("Get a room, you two!",)
+        best_good = ("Just spit it out, lovebird!",)
+        best_bad = ("Unrequited love? Boring!",)
+        mutual_good = ("My, they do get along nicely.",)
+        good_bad = ("Oh dear. they just don't mix.",)
+        mutual_bad = ("Two rocks'd hit it off better.",)
+        reaction_types = (mutual_best, best_good, best_bad, mutual_good, good_bad, mutual_bad)
+
+        ltr_type = random.choice(response_types)
+        ltr = random.choice(ltr_type)
+        rtl_type = random.choice(response_types)
+        rtl = random.choice(rtl_type)
+        if ltr_type==best_responses:
+            if rtl_type==best_responses: reaction_type = mutual_best
+            elif rtl_type==good_responses: reaction_type = best_good
+            elif rtl_type==bad_responses: reaction_type = best_bad
+        elif ltr_type==good_responses:
+            if rtl_type==best_responses: reaction_type = best_good
+            elif rtl_type==good_responses: reaction_type = mutual_good
+            elif rtl_type==bad_responses: reaction_type = good_bad
+        elif ltr_type==bad_responses:
+            if rtl_type==best_responses: reaction_type = best_bad
+            elif rtl_type==good_responses: reaction_type = good_bad
+            elif rtl_type==bad_responses: reaction_type = mutual_bad
+
+        reaction = random.choice(reaction_type)
+        msg = """```
+{person1} --{ltr}-> {person2}
+{person1} <-{rtl}-- {person2}```
+{reaction}""".format(person1=person1,person2=person2,ltr=ltr,rtl=rtl,reaction=reaction)
+        await self.bot.say(msg)
 
 def setup(bot):
     bot.add_cog(Memes(bot))

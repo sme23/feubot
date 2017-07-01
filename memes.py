@@ -169,11 +169,16 @@ class Memes:
         """Press F to pay respects."""
         await self.bot.upload("./respects.jpeg")
 
+    @bot.command(aliases=["SOA", 'SoA'])
+    async def soa(self):
+        """there's your problem"""
+        await self.bot.upload("./SoA.png")
+
     #TODO: HUBBA TESTER
     @bot.command()
     async def hubba(self, person1, person2):
         """discover their true feelings"""
-        best_responses = ("About to swoon","Always staring","Carries a torch for","Desires attention","Devoted","Drawn by destiny","Drools openly","Fatal attraction","First love","Has a sweet spot","Head over heels","Heart aflutter","Infatuated","Lives and dies for","Loins afire","Lost in pheromones","Lovey Dovey","Never wants to part","One-track mind","Possesive","Puts on a pedestal","Separation anxiety","Smitten","True love","True sacrificer","Uses pet names","Wants to snuggle","Way too attached","Would give anything","Would hold hands")
+        best_responses = ("About to swoon","Always staring","Carries a torch for","Desires attention","Devoted","Drawn by destiny","Drools openly","Fatal attraction","First love","Has a sweet spot","Head over heels","Heart aflutter","Infatuated","Lives and dies for","Loins afire","Lost in pheromones","Lovey Dovey","Never wants to part","One-track mind","Possessive","Puts on a pedestal","Separation anxiety","Smitten","True love","True sacrificer","Uses pet names","Wants to snuggle","Way too attached","Would give anything","Would hold hands")
         good_responses = ("Admires lifestyle","Always entertained","Best friend","Budding friendship","Comrade","Confessor","Easy to joke with","Feels safe","Finds agreeable","Fun to train with","Good friend","Into the same foods","Like minded","Low maintenance","Not a dull moment","On the same page","Relaxed around","Same wavelength","Sees potential","Shopping buddy","Similar hobbies","Sparring partner","Thinks highly of","Total respect","Totally platonic","Trusts implicitly","Ultimate duo")
         bad_responses = ("Avoids eye contact","Awkward","Bad chemistry","Bad teamwork","Cold shoulder","Dislikes","Dreads meeting","Expects betrayal","Fashion disaster","Feigns friendship","Finds freaky","Finds irritating","Friend zone","Indifferent","Intimidated","Into different things","Keeping a distance","No ear for music","Not interested","Not into the hair","Nothing in common","Nothing to say","On eggshells","Oil and water","Out of whack","Touch-and-go","Utterly baffled","Weirded Out")
         response_types = (best_responses, good_responses, bad_responses)
@@ -182,7 +187,7 @@ class Memes:
         best_good = ("Just spit it out, lovebird!",)
         best_bad = ("Unrequited love? Boring!",)
         mutual_good = ("My, they do get along nicely.",)
-        good_bad = ("Oh dear. they just don't mix.",)
+        good_bad = ("Oh dear. They just don't mix.",)
         mutual_bad = ("Two rocks'd hit it off better.",)
         reaction_types = (mutual_best, best_good, best_bad, mutual_good, good_bad, mutual_bad)
 

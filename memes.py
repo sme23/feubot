@@ -3,7 +3,7 @@ from discord.ext import commands as bot
 import os, random, re
 
 class Memes:
-    """My custom cog that does stuff!"""
+    """only the dankest"""
 
     def __init__(self, bot):
         self.bot = bot

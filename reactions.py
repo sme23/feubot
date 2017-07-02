@@ -3,7 +3,7 @@ from discord.ext import commands as bot
 import os, random, re, asyncio
 
 class Reactions:
-    """My custom cog that does stuff!"""
+    """memes but not"""
 
     def __init__(self, bot):
         self.bot = bot

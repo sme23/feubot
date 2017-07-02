@@ -169,6 +169,11 @@ class Memes:
         """Press F to pay respects."""
         await self.bot.upload("./respects.jpeg")
 
+    @bot.command()
+    async def enough(self):
+        """you wouldn't like me when i'm angry"""
+        await self.bot.upload("./enough.png")
+
     @bot.command(aliases=["SOA", 'SoA'])
     async def soa(self):
         """there's your problem"""

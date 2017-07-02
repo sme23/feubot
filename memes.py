@@ -163,16 +163,6 @@ class Memes:
     async def fury(self):
         """2 FAST 2 FURYOUS"""
         await self.bot.say("Don't you mean `>>erin`?")
-    
-    @bot.command(aliases=["f", 'respects'])
-    async def F(self):
-        """Press F to pay respects."""
-        await self.bot.upload("./respects.jpeg")
-
-    @bot.command()
-    async def enough(self):
-        """you wouldn't like me when i'm angry"""
-        await self.bot.upload("./enough.png")
 
     @bot.command(aliases=["SOA", 'SoA'])
     async def soa(self):

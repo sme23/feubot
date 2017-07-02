@@ -60,6 +60,16 @@ class Reactions:
         await asyncio.sleep(2)
         await self.bot.say("***REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE***")
 
+    @bot.command(aliases=["f", 'respects'])
+    async def F(self):
+        """Press F to pay respects."""
+        await self.bot.upload("./respects.jpeg")
+
+    @bot.command()
+    async def enough(self):
+        """you wouldn't like me when i'm angry"""
+        await self.bot.upload("./enough.png")
+
 
 def setup(bot):
     bot.add_cog(Reactions(bot))

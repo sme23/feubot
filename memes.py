@@ -25,6 +25,13 @@ class Memes:
         direction = random.choice([":arrow_down:", ":arrow_up:"])
         await self.bot.say(direction+" with <:arch_mini:230160993299202068>")
 
+
+    @bot.command()
+    async def style(self):
+        """if my style gets in your way"""
+        img = random.choice(["styleRD.gif", "stylePoR.jpeg"])
+        await self.bot.upload(img)
+
     @bot.command()
     async def goofs(self):
         """list goofs"""

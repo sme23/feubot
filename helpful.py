@@ -77,6 +77,11 @@ class Helpful:
         await self.bot.say(embed=embed)
 
     @bot.command()
+    async def mugs():
+        """Link to image of all GBAFE mugs."""
+        await self.bot.say("https://cdn.discordapp.com/attachments/206588291053649921/319807984534421504/TwEvuNP.png")
+
+    @bot.command()
     async def hit(self, number, type="2RN"):
         """Convert 2RN/fates hit to actual chance"""
         try:

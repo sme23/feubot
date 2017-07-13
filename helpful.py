@@ -77,7 +77,7 @@ class Helpful:
         await self.bot.say(embed=embed)
 
     @bot.command()
-    async def mugs():
+    async def mugs(self):
         """Link to image of all GBAFE mugs."""
         await self.bot.say("https://cdn.discordapp.com/attachments/206588291053649921/319807984534421504/TwEvuNP.png")
 

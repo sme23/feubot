@@ -79,7 +79,7 @@ class Helpful:
     @bot.command()
     async def mugs(self):
         """Link to image of all GBAFE mugs."""
-        await self.bot.say("https://cdn.discordapp.com/attachments/206588291053649921/319807984534421504/TwEvuNP.png")
+        await self.bot.say("http://doc.feuniverse.us/static/resources/mugs.png")
 
     @bot.command()
     async def hit(self, number, type="2RN"):

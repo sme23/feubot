@@ -52,6 +52,16 @@ class Reactions:
         await self.bot.upload("./hectorpc.png")
 
     @bot.command()
+    async def eliwood(self):
+        """:("""
+        await self.bot.upload("./eliwoodpc.jpg")
+
+    @bot.command()
+    async def lyn(self):
+        """>:("""
+        await self.bot.upload("./lynpc.png")
+
+    @bot.command()
     async def spritans(self):
         """REEE"""
         await self.bot.say("muh")

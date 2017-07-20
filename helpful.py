@@ -156,7 +156,7 @@ class Helpful:
     @bot.command(aliases=["UT2"])
     async def ut2(self):
         """links ultimate tutorial v2"""
-        embed=discord.Embed(title="Fire Emblem Hacking Ultimate Tutorial v2", url='https://stackedit.io/viewer#!provider=gist&gistId=084645b0690253600f4aa2a57b76a105&filename=feutv2', description="How to do everything with Event Assembler buildfiles", color=0x40caf2)
+        embed=discord.Embed(title="Fire Emblem Hacking Ultimate Tutorial v2", url='https://tutorial.feuniverse.us/', description="How to do everything with Event Assembler buildfiles", color=0x40caf2)
         await self.bot.say(embed=embed)
 
 

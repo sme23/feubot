@@ -21,7 +21,7 @@ class Memes:
     @bot.command()
     async def writing(self):
         """get it in writing. in blood."""
-        awair self.bot.upload("Pelleass_Blood_Pact.png")
+        await self.bot.upload("Pelleass_Blood_Pact.png")
 
 
     @bot.command()

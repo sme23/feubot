@@ -18,6 +18,11 @@ class Memes:
         """tells the time"""
         await self.bot.say("`it's tiki time`")
 
+    @bot.command()
+    async def writing(self):
+        """get it in writing. in blood."""
+        awair self.bot.upload("Pelleass_Blood_Pact.png")
+
 
     @bot.command()
     async def arch(self):

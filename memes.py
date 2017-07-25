@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands as bot
-import os, random, re
+import os, random, re, asyncio
 
 class Memes:
     """only the dankest"""
@@ -17,6 +17,8 @@ class Memes:
     async def whattime(self):
         """tells the time"""
         await self.bot.say("`it's tiki time`")
+        # await asyncio.sleep(1)
+        await self.bot.upload("tiki.gif")
 
     @bot.command()
     async def writing(self):

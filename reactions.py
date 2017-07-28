@@ -70,6 +70,17 @@ class Reactions:
         await asyncio.sleep(2)
         await self.bot.say("***REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE***")
 
+    @bot.command()
+    async def reee(self):
+        """REEEEEEEEEEEEEEEEEEE"""
+        msg = await self.bot.say("*REEE*")
+        await asyncio.sleep(0.5)
+        for i in range(1, random.randint(5,10)):
+            await asyncio.sleep(0.25)
+            await self.bot.edit_message(msg, "**REEE" + "E"*i + "**")
+        await asyncio.sleep(0.25)
+        await self.bot.edit_message(msg, "***REEE" + "E"*(i+1) + "***")
+
     @bot.command(aliases=["f", 'respects'])
     async def F(self):
         """Press F to pay respects."""

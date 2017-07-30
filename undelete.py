@@ -46,7 +46,7 @@ class UndeleteCog(object):
     __slots__ = ['bot']
 
     @bot.command(pass_context=True, hidden=True)
-    async def undelete(self, ctx, *, names=None):
+    async def undelete(self, ctx, *, name=None):
         msg = ctx.message
         if (type(msg.author) is discord.Member
             and not [r for r in msg.author.roles
@@ -54,7 +54,7 @@ class UndeleteCog(object):
         ):
             await self.bot.say('You do not have undelete permissions.')
             return
-        if names is None:
+        if name is None:
             if _cache.last() is not None:
                 await self.bot.say(
                         UndeleteCog.FORMAT.format(_cache.last()))
@@ -62,13 +62,12 @@ class UndeleteCog(object):
                 await self.bot.say(
                         'No messages deleted within the last minute')
             return
-        for name in names.split():
-            if _cache[name] is not None:
-                await self.bot.say(UndeleteCog.FORMAT.format(_cache[name]))
-            else:
-                await self.bot.say(
-                        'No messages deleted by %s within the last minute'
-                        % name)
+        if _cache[name] is not None:
+            await self.bot.say(UndeleteCog.FORMAT.format(_cache[name]))
+        else:
+            await self.bot.say(
+                    'No messages deleted by %s within the last minute'
+                    % name)
 
     def __init__(self, bot):
         global _cache

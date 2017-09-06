@@ -21,6 +21,11 @@ class Memes:
         await self.bot.upload("tiki.gif")
 
     @bot.command()
+    async def orbit(self):
+        """my tiki's"""
+        await self.bot.upload("Tikis_in_orbit.png")
+
+    @bot.command()
     async def writing(self):
         """get it in writing. in blood."""
         await self.bot.upload("Pelleass_Blood_Pact.png")

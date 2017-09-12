@@ -5,7 +5,7 @@ import discord
 from discord.ext import commands as bot
 
 _TIMEOUT = 60
-_PERMITTED_ROLES = ['Paladins', 'Lords', 'Mage Knights']
+_PERMITTED_ROLES = ['Paladins', 'Lords', 'Mage Knights', 'Undeleter']
 
 _cache = None
 
@@ -28,12 +28,13 @@ class DeletedCache(object):
         s = [msg for msg, ts in self.channels[chn.id]
                 if name is None or msg.author.name == name][-n:]
         if not s: return None
-        n = len(s)
-        result = (("%s deleted %d message(s) within the last minute:\n"
-                    % (name,n))
-                if name is not None
-                else ("%d deleted message(s) within the last minute:\n" % n))
-        return result + '```' + '\n'.join(m.content for m in s) + '```'
+        return s
+        #n = len(s)
+        #result = (("%s deleted %d message(s) within the last minute:\n"
+        #            % (name,n))
+        #        if name is not None
+        #        else ("%d deleted message(s) within the last minute:\n" % n))
+        #return result + '```' + '\n'.join(m.content for m in s) + '```'
 
     def __init__(self):
         self.channels = dict()
@@ -46,7 +47,7 @@ class DeletedCache(object):
         super().__init__()
 
 class UndeleteCog(object):
-    FORMAT = '{0.author} said:\n```{0.content}```'
+    FORMAT = '{0.author} said:\n```\n{0.content}```\n'
     __slots__ = ['bot']
 
     @bot.command(pass_context=True, hidden=True)
@@ -61,7 +62,12 @@ class UndeleteCog(object):
         if n < 1: return
         result = _cache.last(ctx.message.channel, n, name)
         if _cache.last(ctx.message.channel, n, name) is not None:
-            await self.bot.say(result)
+            await self.bot.say(
+                '%d deleted message(s) within the last minute:\n'.format(len(result)) ++
+                reduce(lambda acc, e: acc+e,
+                [FORMAT.format(author=msg.author, name=msg.content) for msg in result]
+                , "")
+                )
         else:
             await self.bot.say(
                 'No messages deleted ' +
@@ -78,4 +84,3 @@ def cache(msg):
 
 def setup(bot):
     bot.add_cog(UndeleteCog(bot))
-

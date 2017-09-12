@@ -36,7 +36,7 @@ class Reactions:
         else:
             await self.bot.upload("./disgusting/"+random.choice([a for a in ewlist.values()]))
 
-    @bot.command()
+    @bot.command(aliases=["incredible"])
     async def fuckingincredible(self):
         """fuckingincredible.png"""
         await self.bot.say("http://i.imgur.com/yt4hXhJ.png")

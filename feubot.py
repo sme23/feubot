@@ -30,6 +30,7 @@ if __name__ == "__main__":
     @bot.command()
     async def donate():
         """you know it"""
+        await bot.say("https://www.patreon.com/theFEUfund")
         await bot.say("https://donorbox.org/donate-to-circles")
 
     token = os.environ.get('TOKEN', default=None)
@@ -42,4 +43,3 @@ if __name__ == "__main__":
     undelete.setup(bot)
 
     bot.run(token)
-

@@ -1,5 +1,6 @@
 
 from time import time
+from functools import reduce
 
 import discord
 from discord.ext import commands as bot
@@ -22,13 +23,16 @@ class DeletedCache(object):
             self._prune(key, reqt)
 
     def last(self, chn, n, name=None):
+        if name and len(name)>4: name = name[3:-1] #remove the borders on the id.
         reqt = time()
         self._prune(chn.id, reqt)
         if chn.id not in self.channels: return None
-        s = [msg for msg, ts in self.channels[chn.id]
-                if name is None or msg.author.name == name][-n:]
+        s = [(msg, ts) for msg, ts in self.channels[chn.id]
+                if name is None or msg.author.id == name]
         if not s: return None
-        return s
+
+        self.channels[chn.id] = [m for m in self.channels[chn.id] if m not in s] #remove the messages we're undeleting.
+        return [x[0] for x in s]
         #n = len(s)
         #result = (("%s deleted %d message(s) within the last minute:\n"
         #            % (name,n))
@@ -47,7 +51,8 @@ class DeletedCache(object):
         super().__init__()
 
 class UndeleteCog(object):
-    FORMAT = '{0.author} said:\n```\n{0.content}```\n'
+    AUTHOR_FORMAT = '{author} said:\n```\n{content}```\n'
+    NO_AUTHOR_FORMAT ='```\n{content}```\n'
     __slots__ = ['bot']
 
     @bot.command(pass_context=True, hidden=True)
@@ -61,11 +66,13 @@ class UndeleteCog(object):
             return
         if n < 1: return
         result = _cache.last(ctx.message.channel, n, name)
-        if _cache.last(ctx.message.channel, n, name) is not None:
+        if result is not None:
+            FORMAT = self.AUTHOR_FORMAT if not name else self.NO_AUTHOR_FORMAT
             await self.bot.say(
-                '%d deleted message(s) within the last minute:\n'.format(len(result)) ++
+                ('{} deleted message(s) by {} within the last minute:\n'.format(len(result), name) if name else
+                    '{} deleted message(s) within the last minute:\n'.format(len(result))) +
                 reduce(lambda acc, e: acc+e,
-                [FORMAT.format(author=msg.author, name=msg.content) for msg in result]
+                [FORMAT.format(author=msg.author, content=msg.content) for msg in result]
                 , "")
                 )
         else:

@@ -104,6 +104,8 @@ What the fuck did you just fucking say about me, you little bitch? I’ll have y
             elif (lord.lower() == 'ea'):
                 await self.bot.say("`" + lord + " is our bae`")
                 return
+            elif (lord.lower() in ['bm', 'blackmage', 'black mage']):
+                await self.bot.upload("BMis.gif")
             elif lord[0].lower() in 'bcdfghjklmnpqrstvwxz':
                 blord = 'b'+lord[1:]
             else:

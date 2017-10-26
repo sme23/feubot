@@ -196,6 +196,11 @@ What the fuck did you just fucking say about me, you little bitch? I’ll have y
         await self.bot.upload("./erinyous.gif")
 
     @bot.command()
+    async def slow(self):
+        """It's what I ain't."""
+        await self.bot.upload("./slow.png")
+
+    @bot.command()
     async def fury(self):
         """2 FAST 2 FURYOUS"""
         await self.bot.say("Don't you mean `>>erin`?")

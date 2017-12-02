@@ -132,7 +132,7 @@ What the fuck did you just fucking say about me, you little bitch? I’ll have y
             "<:elise:235616193065517066>", 
             "<:eliwood:232283812938121217>", 
             "<:elbert:232283825974149120>", 
-            "<:EAmoe:317182514559188994>", 
+            "<:dootthunk:339479700147798016>",  
             "<:doot:324593825815461889>", 
             "<:donate:230166446146191362>", 
             "<:doc:280527122802540544>", 
@@ -141,13 +141,13 @@ What the fuck did you just fucking say about me, you little bitch? I’ll have y
             "<:celica:272027128231362571>", 
             "<:BBQ:230169373694885888>", 
             "<:arch_mini:230160993299202068>", 
-            "<:cam_thumb:307559627573428224>", 
+            "<:camthumb:307559627573428224>", 
             "<:dat:292422389197701121>", 
             "<:thighs:294965155819683840>"]
         if len(args) > 0: head = ' '.join(args)
         else: head = random.choice(heads)
         await self.bot.say(head + """
-<:personality:274564774979960832>
+<:personality:385616854451748864>
 <:thighs:294965155819683840>""")
 
     @bot.command()

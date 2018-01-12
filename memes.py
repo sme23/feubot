@@ -42,11 +42,11 @@ What the fuck did you just fucking say about me, you little bitch? I’ll have y
     async def evil(self, *args):
         """Sub-humans."""
         if len(args) > 0:
-            thing = args[0]
+            thing = ' '.join(args)
             plural = thing[-1] == 's' #TODO: use inflect
             formatString = '''```\n{1} {0} evil.\n{1} {0} the enemy.\n{1} must be eradicated.```'''
-            verb = if plural then "are" else "is"
-            await self.bot.say(formatString % (verb, thing))
+            verb = "are" if plural else "is"
+            await self.bot.say(formatString.format(verb, thing))
         else:
             await self.bot.say("You gotta tell me **what's** evil!")
 

@@ -46,7 +46,7 @@ What the fuck did you just fucking say about me, you little bitch? I’ll have y
             plural = thing[-1] == 's' #TODO: use inflect
             formatString = '''```\n{1} {0} evil.\n{1} {0} the enemy.\n{1} must be eradicated.```'''
             verb = if plural then "are" else "is"
-            away self.bot.say(formatString % (verb, thing))
+            await self.bot.say(formatString % (verb, thing))
         else:
             await self.bot.say("You gotta tell me **what's** evil!")
 

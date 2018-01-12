@@ -47,6 +47,19 @@ What the fuck did you just fucking say about me, you little bitch? I’ll have y
         await self.bot.say("I think you mean Ma"+infix+"a!")
 
     @bot.command()
+    async def evil(self, *args):
+        """Sub-humans."""
+        if len(args) > 0:
+            thing = ' '.join(args)
+            plural = thing[-1] == 's' #TODO: use inflect
+            formatString = '''```\n{1} {0} evil.\n{1} {0} the enemy.\n{1} must be eradicated.```'''
+            verb = "are" if plural else "is"
+            await self.bot.say(formatString.format(verb, thing))
+        else:
+            await self.bot.say("You gotta tell me **what's** evil!")
+
+
+    @bot.command()
     async def arch(self):
         """do something with arch"""
         direction = random.choice([":arrow_down:", ":arrow_up:"])
@@ -173,8 +186,8 @@ What the fuck did you just fucking say about me, you little bitch? I’ll have y
     @bot.command(aliases=["eventassembler", "everythingassembler"])
     async def ea(self):
         """EVERYTHING ASSEMBLER"""
-        everythingassemblerstring = """``` _____                 _   _   _         
-|   __|_ _ ___ ___ _ _| |_| |_|_|___ ___ 
+        everythingassemblerstring = """``` _____                 _   _   _
+|   __|_ _ ___ ___ _ _| |_| |_|_|___ ___
 |   __| | | -_|  _| | |  _|   | |   | . |
 |_____|\_/|___|_| |_  |_| |_|_|_|_|_|_  |
                   |___|             |___|

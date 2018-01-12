@@ -91,6 +91,16 @@ class Reactions:
         """you wouldn't like me when i'm angry"""
         await self.bot.upload("./enough.png")
 
+    @bot.command()
+    async def tethys(self):
+        """dancer think"""
+        await self.bot.upload("./tethys.png")
+
+    @bot.command()
+    async def marisa(self):
+        """u srs"""
+        await self.bot.upload("./marisa.png")
+
 
 def setup(bot):
     bot.add_cog(Reactions(bot))

@@ -37,6 +37,14 @@ class Memes:
 What the fuck did you just fucking say about me, you little bitch? I’ll have you know I graduated top of my class in the FE University, and I’ve been involved in numerous secret raids on Serenes Forest, and I have over 300 confirmed hacks. I am trained in donating to hex and I’m the top debugger in the entire FE Shrine. You are nothing to me but just another breakpoint. I will wipe you the fuck out with precision the likes of which has never been seen before on an ARMv7TDMI, mark my fucking words. You think you can get away with saying that shit to me over the Internet? Think again, fucker. As we speak I am contacting my secret network of backups across the ROM and your link register is being traced right now so you better prepare for the screech, fleshling. The death screech that wipes out the pathetic little thing you call your reskin. You’re fucking dead, kid. I can be anywhere, anytime, and I can crash your rom in over seven hundred ways, and that’s just with FEditor. Not only am I extensively trained in Nightmare, but I have access to the entire arsenal of the Unified FE Hacking Doc and I will use it to its full extent to wipe your miserable map sprite off the face of Magvel, you little shit. If only you could have known what unholy retribution your little “clever” comment was about to bring down upon you, maybe you would have held your fucking tongue. But you couldn’t, you didn’t, and now you’re paying the price, you goddamn idiot. I will shit Erin all over you and you will drown in it. You’re fucking dead, kiddo.
 ```""")
 
+    @bot.command(aliases=["ma???a"])
+    async def ma___a(self):
+        """what IS her name anyway"""
+        letters = [x for x in "abcdefghijklmnopqrstuvwyxz"]
+        consonants = [x for x in "bcdfghjklmnpqrstvwxz"]
+        vowels = [x for x in "aeiouy"]
+        infix = random.choice(consonants) + random.choice(letters) + random.choice(vowels)
+        await self.bot.say("I think you mean Ma"+infix+"a!")
 
     @bot.command()
     async def evil(self, *args):
@@ -109,6 +117,8 @@ What the fuck did you just fucking say about me, you little bitch? I’ll have y
             elif (lord.lower() == 'ea'):
                 await self.bot.say("`" + lord + " is our bae`")
                 return
+            elif (lord.lower() in ['bm', 'blackmage', 'black mage']):
+                await self.bot.upload("BMis.gif")
             elif lord[0].lower() in 'bcdfghjklmnpqrstvwxz':
                 blord = 'b'+lord[1:]
             else:
@@ -119,38 +129,38 @@ What the fuck did you just fucking say about me, you little bitch? I’ll have y
     async def createwaifu(self,*args):
         """:wink:"""
         heads = [
-            "<:zigludo:252132877678936064>",
-            "<:zahlman:230166256412655616>",
-            "<:narcian:271805925017387008>",
-            "<:marf:230171669635923968>",
-            "<:lloydwut:313590046978605059>",
-            "<:linde:325036388833558539>",
-            "<:lilina:230156179916062720>",
-            "<:kent:232283653642780672>",
-            "<:kaga:293121861905022976>",
-            "<:ick:280744571640610816>",
-            "<:florina:230904896067469312>",
-            "<:FEU:230151584846184448>",
-            "<:fa:303774076252454912>",
-            "<:elise:235616193065517066>",
-            "<:eliwood:232283812938121217>",
-            "<:elbert:232283825974149120>",
-            "<:EAmoe:317182514559188994>",
-            "<:doot:324593825815461889>",
-            "<:donate:230166446146191362>",
-            "<:doc:280527122802540544>",
-            "<:colorz:230159530158194688>",
-            "<:circles:238177111418863617>",
-            "<:celica:272027128231362571>",
-            "<:BBQ:230169373694885888>",
-            "<:arch_mini:230160993299202068>",
-            "<:cam_thumb:307559627573428224>",
-            "<:dat:292422389197701121>",
+            "<:zigludo:252132877678936064>", 
+            "<:zahlman:230166256412655616>", 
+            "<:narcian:271805925017387008>", 
+            "<:marf:230171669635923968>", 
+            "<:lloydwut:313590046978605059>", 
+            "<:linde:325036388833558539>", 
+            "<:lilina:230156179916062720>", 
+            "<:kent:232283653642780672>", 
+            "<:kaga:293121861905022976>", 
+            "<:ick:280744571640610816>", 
+            "<:florina:230904896067469312>", 
+            "<:FEU:230151584846184448>", 
+            "<:fa:303774076252454912>", 
+            "<:elise:235616193065517066>", 
+            "<:eliwood:232283812938121217>", 
+            "<:elbert:232283825974149120>", 
+            "<:dootthunk:339479700147798016>",  
+            "<:doot:324593825815461889>", 
+            "<:donate:230166446146191362>", 
+            "<:doc:280527122802540544>", 
+            "<:colorz:230159530158194688>", 
+            "<:circles:238177111418863617>", 
+            "<:celica:272027128231362571>", 
+            "<:BBQ:230169373694885888>", 
+            "<:arch_mini:230160993299202068>", 
+            "<:camthumb:307559627573428224>", 
+            "<:dat:292422389197701121>", 
             "<:thighs:294965155819683840>"]
         if len(args) > 0: head = ' '.join(args)
         else: head = random.choice(heads)
         await self.bot.say(head + """
-<:personality:274564774979960832>
+<:personality:385616854451748864>
 <:thighs:294965155819683840>""")
 
     @bot.command()

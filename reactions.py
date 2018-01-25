@@ -101,6 +101,12 @@ class Reactions:
         """u srs"""
         await self.bot.upload("./marisa.png")
 
+    @bot.command()
+    async def lel(self):
+        """lel"""
+        await self.bot.upload("./lel.png")
+
+
 
 def setup(bot):
     bot.add_cog(Reactions(bot))

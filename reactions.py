@@ -106,7 +106,16 @@ class Reactions:
         """lel"""
         await self.bot.upload("./lel.png")
 
-
+    @bot.command(pass_context=True, hidden=True)
+    async def approve(self, ctx):
+        msg = ctx.message
+        if msg.author is not None and [r for r in msg.author.roles
+                           if str(r)=='Lords']:
+            await self.bot.upload('./approved.png')
+            return
+        else:
+            await self.bot.say(
+                "You don't get to approve things!")
 
 def setup(bot):
     bot.add_cog(Reactions(bot))

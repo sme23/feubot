@@ -109,7 +109,7 @@ class Reactions:
     @bot.command(pass_context=True, hidden=True)
     async def approve(self, ctx):
         msg = ctx.message
-        if str(ctx.message.author.id) == 171863408822452224:
+        if str(ctx.message.author.id) == "171863408822452224":
             await self.bot.upload('./approved.png')
             return
         else:

@@ -104,7 +104,8 @@ class Reactions:
     @bot.command()
     async def lel(self):
         """lel"""
-        await self.bot.upload("./lel.png")
+        img=random.choice(["./lel.png","./lel2.png"])
+        await self.bot.upload(img)
 
     @bot.command(pass_context=True, hidden=True)
     async def approve(self, ctx):

@@ -117,5 +117,10 @@ class Reactions:
             await self.bot.say(
                 "You don't get to approve things!")
 
+    @bot.command(aliases=["OK"])
+    async def ok(self):
+        """ok"""
+        await self.bot.upload("./ok.png")
+
 def setup(bot):
     bot.add_cog(Reactions(bot))

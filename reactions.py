@@ -122,5 +122,10 @@ class Reactions:
         """ok"""
         await self.bot.upload("./ok.png")
 
+    @bot.command()
+    async def uberthink(self):
+        """🤔"""
+        await self.bot.upload("./uberthink.gif")
+
 def setup(bot):
     bot.add_cog(Reactions(bot))

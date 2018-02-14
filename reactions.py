@@ -114,8 +114,7 @@ class Reactions:
             await self.bot.upload('./approved.png')
             return
         else:
-            await self.bot.say(
-                "You don't get to approve things!")
+            await self.bot.upload('./FEU_Seal.png')
 
     @bot.command(aliases=["OK"])
     async def ok(self):

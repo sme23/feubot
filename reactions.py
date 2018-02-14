@@ -109,10 +109,11 @@ class Reactions:
 
     @bot.command(pass_context=True, hidden=True)
     async def approve(self, ctx):
-        msg = ctx.message
-        if str(ctx.message.author.id) == "171863408822452224":
+        pid = str(ctx.message.author.id)
+        if pid == "171863408822452224":
             await self.bot.upload('./approved.png')
-            return
+        elif pid == '59462571601702912':
+            await self.bot.upload('./Letha_Seal_of_Approval.png')    
         else:
             await self.bot.upload('./FEU_Seal.png')
 

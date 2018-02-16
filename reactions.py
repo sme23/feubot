@@ -64,26 +64,27 @@ class Reactions:
     @bot.command()
     async def spritans(self):
         """REEE"""
-        action = random.choice([1,2])
-        if action==1:
-            await self.bot.say("muh")
-            await asyncio.sleep(1)
-            await self.bot.say("SPRITANS")
-            await asyncio.sleep(2)
-            await self.bot.say("***REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE***")
-        else:
-            await self.bot.upload("./reee.gif")
+        await self.bot.say("muh")
+        await asyncio.sleep(1)
+        await self.bot.say("SPRITANS")
+        await asyncio.sleep(2)
+        await self.bot.say("***REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE***")
+
 
     @bot.command()
     async def reee(self):
         """REEEEEEEEEEEEEEEEEEE"""
-        msg = await self.bot.say("*REEE*")
-        await asyncio.sleep(0.5)
-        for i in range(1, random.randint(5,10)):
+        action = random.choice([1,2])
+        if action==1:
+            msg = await self.bot.say("*REEE*")
+            await asyncio.sleep(0.5)
+            for i in range(1, random.randint(5,10)):
+                await asyncio.sleep(0.25)
+                await self.bot.edit_message(msg, "**REEE" + "E"*i + "**")
             await asyncio.sleep(0.25)
-            await self.bot.edit_message(msg, "**REEE" + "E"*i + "**")
-        await asyncio.sleep(0.25)
-        await self.bot.edit_message(msg, "***REEE" + "E"*(i+1) + "***")
+            await self.bot.edit_message(msg, "***REEE" + "E"*(i+1) + "***")
+        else:
+            await self.bot.upload("./reee.gif")           
 
     @bot.command(aliases=["f", 'respects'])
     async def F(self):

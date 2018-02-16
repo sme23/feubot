@@ -64,11 +64,15 @@ class Reactions:
     @bot.command()
     async def spritans(self):
         """REEE"""
-        await self.bot.say("muh")
-        await asyncio.sleep(1)
-        await self.bot.say("SPRITANS")
-        await asyncio.sleep(2)
-        await self.bot.say("***REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE***")
+        action = random.choice([1,2])
+        if action==1:
+            await self.bot.say("muh")
+            await asyncio.sleep(1)
+            await self.bot.say("SPRITANS")
+            await asyncio.sleep(2)
+            await self.bot.say("***REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE***")
+        else:
+            await self.bot.upload("./reee.gif")
 
     @bot.command()
     async def reee(self):

@@ -267,7 +267,7 @@ What the fuck did you just fucking say about me, you little bitch? I’ll have y
     async def brat(self, msg):
         if msg.author == self.bot.user: return
         if (type(msg.channel) == discord.channel.PrivateChannel
-                or 'donate_for_orbs' in msg.channel.name):
+                or 'orbs' in msg.channel.name):
             if 'MYRRH' in msg.content.upper():
                 await self.bot.send_message(msg.channel, '```fucking brat```')
 

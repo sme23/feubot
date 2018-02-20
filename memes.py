@@ -1,14 +1,12 @@
 import discord
 from discord.ext import commands as bot
-import os, random, re, asyncio, datetime
+import os, random, re, asyncio
 
 class Memes:
     """only the dankest"""
 
     def __init__(self, bot):
         self.bot = bot
-        self.bratTimer = None
-        self.brat = bot.listen('on_message')(self.brat)
 
     @bot.command()
     async def reply(self):
@@ -265,17 +263,5 @@ What the fuck did you just fucking say about me, you little bitch? I’ll have y
 {reaction}```""".format(person1=person1,person2=person2,ltr=ltr,rtl=rtl,reaction=reaction)
         await self.bot.say(msg)
 
-    async def brat(self, msg):
-        if msg.author == self.bot.user: return
-        now = datetime.datetime.now()
-        if self.bratTimer is not None and (now - self.bratTimer).seconds < 5 * 60:
-            return
-        if (type(msg.channel) == discord.channel.PrivateChannel
-                or 'orbs' in msg.channel.name):
-            if 'MYRRH' in msg.content.upper():
-                self.bratTimer = now
-                await self.bot.send_message(msg.channel, '```fucking brat```')
-
 def setup(bot):
     bot.add_cog(Memes(bot))
-

@@ -7,6 +7,7 @@ class Memes:
 
     def __init__(self, bot):
         self.bot = bot
+        self.brat = bot.listen('on_message')(self.brat)
 
     @bot.command()
     async def reply(self):
@@ -263,5 +264,13 @@ What the fuck did you just fucking say about me, you little bitch? I’ll have y
 {reaction}```""".format(person1=person1,person2=person2,ltr=ltr,rtl=rtl,reaction=reaction)
         await self.bot.say(msg)
 
+    async def brat(self, msg):
+        if msg.author == self.bot.user: return
+        if (type(msg.channel) == discord.channel.PrivateChannel
+                or 'donate_for_orbs' in msg.channel.name):
+            if 'MYRRH' in msg.content.upper():
+                await self.bot.send_message(msg.channel, '```fucking brat```')
+
 def setup(bot):
     bot.add_cog(Memes(bot))
+

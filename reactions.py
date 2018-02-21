@@ -97,6 +97,11 @@ class Reactions:
         await self.bot.upload("./enough.png")
 
     @bot.command()
+    async def creepy(self):
+        """stay away"""
+        await self.bot.upload("./creepy.png")
+
+    @bot.command()
     async def tethys(self):
         """dancer think"""
         await self.bot.upload("./tethys.png")

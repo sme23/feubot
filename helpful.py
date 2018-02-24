@@ -69,13 +69,6 @@ class Helpful:
         self.bot = bot
         self.mugs = bot.listen('on_message')(self.mugs)
 
-    async def brat(self, msg):
-        if msg.author.id == "149576374984638464":
-            if ' PORTS' in msg.content.upper():
-                await self.bot.send_message(msg.channel, '```I think you mean "mugs"!```')
-            if ' PORT' in msg.content.upper():
-                await self.bot.send_message(msg.channel, '```I think you mean "mug"!```')
-
 
     @bot.command()
     async def goldmine(self):
@@ -167,6 +160,12 @@ class Helpful:
         embed=discord.Embed(title="Fire Emblem Hacking Ultimate Tutorial v2", url='https://tutorial.feuniverse.us/', description="How to do everything with Event Assembler buildfiles", color=0x40caf2)
         await self.bot.say(embed=embed)
 
+    async def brat(self, msg):
+        if msg.author.id == "149576374984638464":
+            if ' PORTS' in msg.content.upper():
+                await self.bot.send_message(msg.channel, '```I think you mean "mugs"!```')
+            if ' PORT' in msg.content.upper():
+                await self.bot.send_message(msg.channel, '```I think you mean "mug"!```')
 
 def setup(bot):
     bot.add_cog(Helpful(bot))

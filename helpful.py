@@ -67,6 +67,7 @@ class Helpful:
 
     def __init__(self, bot):
         self.bot = bot
+        self.port = bot.listen('on_message')(self.port)
 
 
     @bot.command()
@@ -159,6 +160,10 @@ class Helpful:
         embed=discord.Embed(title="Fire Emblem Hacking Ultimate Tutorial v2", url='https://tutorial.feuniverse.us/', description="How to do everything with Event Assembler buildfiles", color=0x40caf2)
         await self.bot.say(embed=embed)
 
+    async def port(self, msg):
+        if str(msg.author.id) != "149576374984638464": return
+        if 'PORT' in msg.content.upper():
+            await self.bot.send_message(msg.channel, '```I think you mean MUG```')
 
 def setup(bot):
     bot.add_cog(Helpful(bot))

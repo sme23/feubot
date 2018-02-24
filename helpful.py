@@ -67,6 +67,14 @@ class Helpful:
 
     def __init__(self, bot):
         self.bot = bot
+        self.mugs = bot.listen('on_message')(self.mugs)
+
+    async def brat(self, msg):
+        if msg.author.id == "149576374984638464":
+            if ' PORTS' in msg.content.upper():
+                await self.bot.send_message(msg.channel, '```I think you mean "mugs"!```')
+            if ' PORT' in msg.content.upper():
+                await self.bot.send_message(msg.channel, '```I think you mean "mug"!```')
 
 
     @bot.command()

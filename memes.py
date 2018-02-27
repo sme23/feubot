@@ -223,6 +223,11 @@ What the fuck did you just fucking say about me, you little bitch? I’ll have y
         """there's your problem"""
         await self.bot.upload("./SoA.png")
 
+    @bot.command()
+    async def hard(self):
+        """HARD"""
+        await self.bot.upload("./hard.png")
+
     #TODO: HUBBA TESTER
     @bot.command()
     async def hubba(self, person1, person2):

@@ -78,6 +78,12 @@ class Helpful:
         await self.bot.say(embed=embed)
 
     @bot.command()
+    async def repository(self):
+        """graphics for you"""
+        embed=discord.Embed(title="Animation Repository", url='https://drive.google.com/drive/folders/1q874w0cTCqe67F_DXnfvl0Hdc2sEreez', description="Get your animations here", color=0x4286f4)
+        await self.bot.say(embed=embed)
+
+    @bot.command()
     async def mugs(self):
         """Link to image of all GBAFE mugs."""
         await self.bot.say("http://doc.feuniverse.us/static/resources/mugs.png")

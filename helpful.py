@@ -80,7 +80,7 @@ class Helpful:
     @bot.command()
     async def repository(self):
         """graphics for you"""
-        embed=discord.Embed(title="Animation Repository", url='https://drive.google.com/drive/folders/1q874w0cTCqe67F_DXnfvl0Hdc2sEreez', description="Get your animations here", color=0x4286f4)
+        embed=discord.Embed(title="Animation Repository", url='https://drive.google.com/drive/folders/1q874w0cTCqe67F_DXnfvl0Hdc2sEreez', description="Get your animations here (credits missing on many, check just in case!)", color=0x4286f4)
         await self.bot.say(embed=embed)
 
     @bot.command()

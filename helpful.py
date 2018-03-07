@@ -169,7 +169,8 @@ class Helpful:
     async def port(self, msg):
         if str(msg.author.id) != "149576374984638464": return
         if 'PORT' in msg.content.upper():
-            await self.bot.send_message(msg.channel, '```I think you mean MUG```')
+            pass
+            # await self.bot.send_message(msg.channel, '```I think you mean MUG```')
 
 def setup(bot):
     bot.add_cog(Helpful(bot))

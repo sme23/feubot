@@ -6,7 +6,6 @@ import discord
 from discord.ext import commands as bot
 
 _TIMEOUT = 60
-_PERMITTED_ROLES = ['Paladins', 'Lords', 'Mage Knights', 'Undeleter']
 
 _cache = None
 
@@ -56,16 +55,12 @@ class UndeleteCog(object):
     __slots__ = ['bot']
 
     @bot.command(pass_context=True, hidden=True)
+    @bot.check(lambda ctx: type(ctx.message.author) is discord.Member)
+    @bot.check(lambda ctx: bot.has_role('Undeleter')(ctx) or bot.has_permissions(manage_messages = True)(ctx))
     async def undelete(self, ctx, n=1, name=None):
         msg = ctx.message
-        if (type(msg.author) is discord.Member
-            and not [r for r in msg.author.roles
-                           if str(r) in _PERMITTED_ROLES]
-        ):
-            await self.bot.say('You do not have undelete permissions.')
-            return
         if n < 1: return
-        result = _cache.last(ctx.message.channel, n, name)
+        result = _cache.last(msg.channel, n, name)
         if result is not None:
             FORMAT = self.AUTHOR_FORMAT if not name else self.NO_AUTHOR_FORMAT
             await self.bot.say(
@@ -85,6 +80,9 @@ class UndeleteCog(object):
         global _cache
         _cache = DeletedCache()
         self.bot = bot
+        async def undeleteError(self, error, ctx):
+            await self.bot.send_message(ctx.message.channel, 'You do not have undelete permissions.')
+        self.undelete.error(undeleteError)
 
 def cache(msg):
     _cache.insert(msg)

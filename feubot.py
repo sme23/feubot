@@ -6,7 +6,7 @@ import random
 import os
 from sys import argv
 
-import helpful, memes, reactions, undelete
+import helpful, memes, reactions, undelete, other
 from feubotFormatter import FeubotFormatter
 
 if __name__ == "__main__":
@@ -27,6 +27,13 @@ if __name__ == "__main__":
     async def on_message_delete(msg):
         undelete.cache(msg)
 
+    @bot.add_listener
+    async def on_command_error(error, ctx):
+        if type(error) == commands.CheckFailure:
+            pass
+        else:
+            await bot.send_message(ctx.message.channel, error)
+
     @bot.command()
     async def donate():
         """you know it"""
@@ -41,5 +48,6 @@ if __name__ == "__main__":
     memes.setup(bot)
     helpful.setup(bot)
     undelete.setup(bot)
+    other.setup(bot)
 
     bot.run(token)

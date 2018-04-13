@@ -4,6 +4,9 @@ from pickle import dump, load
 import pickle
 from functools import reduce
 
+developerIDs = ['91393737950777344', '171863408822452224', '146075481534365697']
+developerCheck = commands.check(lambda x: x in developerIDs)
+
 class Other:
     """Commands added for convienience."""
     def __init__(self, bot):
@@ -12,21 +15,21 @@ class Other:
             if os.path.exists("commands.pickle"):
                 with open('commands.pickle', 'rb') as f:
                     self.dynamicCommands = load(f)
-                    if type(self.dynamicCommands) != dict():
+                    if type(self.dynamicCommands) != dict:
                         raise Exception
+            else:
+                self.dynamicCommands = dict()
         except Exception as e:
             try:
                 if os.path.exists("commands_backup.pickle"):
                     with open('commands_backup.pickle', 'rb') as f:
                         self.dynamicCommands = load(f)
-                        if type(self.dynamicCommands) != dict():
+                        if type(self.dynamicCommands) != dict:
                             raise Exception
                 else:
                     print("Corrupted command pickle file! Loading nothing.\nException: %s" % e)
             except Exception as e2:
                 print("Corrupted command pickle file and backup! Loading nothing.\nException: %s\n%s" % (e, e2))
-            self.dynamicCommands = dict()
-        else:
             self.dynamicCommands = dict()
 
         for command in self.dynamicCommands:
@@ -35,7 +38,7 @@ class Other:
                 await self.bot.say(self.dynamicCommands[command])
 
     @commands.command(ignore_extra = False)
-    @commands.has_permissions(administrator = True)
+    @developerCheck
     async def addCommand(self, command_name, command_content):
         """Admins only. Adds a new simple response command."""
         if command_name.casefold() in map(lambda x: x.casefold(), self.bot.commands):
@@ -49,7 +52,7 @@ class Other:
         await self.bot.say("Added command \"%s\"." % command_name)
 
     @commands.command(ignore_extra = False)
-    @commands.has_permissions(administrator = True)
+    @developerCheck
     async def removeCommand(self, command_name):
         """Admins only. Removes a previously defined simple response command."""
         if command_name not in self.dynamicCommands:
@@ -60,7 +63,7 @@ class Other:
         await self.bot.say("Command \"%s\" successfully deleted." % command_name)
 
     @commands.command()
-    @commands.has_permissions(administrator = True)
+    @developerCheck
     async def save(self):
         """Admins only. Saves all of the current custom commands to be loaded when FEUbot is booted."""
         try:
@@ -76,7 +79,7 @@ class Other:
         await self.bot.say("Commands successfully saved.")
 
     @commands.command(name = 'eval')
-    @commands.has_permissions(administrator = True)
+    @developerCheck
     async def botEval(self, *, arg):
         """Admins only. Evaluate a Python code segment. UNSAFE!!!"""
         fix = lambda f: (lambda x: x(x))(lambda y: f(lambda args: y(y)(args)))

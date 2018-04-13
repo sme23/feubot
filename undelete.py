@@ -6,6 +6,7 @@ import discord
 from discord.ext import commands as bot
 
 _TIMEOUT = 60
+_PERMITTED_ROLES = ['Paladins', 'Lords', 'Mage Knights', 'Undeleter']
 
 _cache = None
 
@@ -56,7 +57,7 @@ class UndeleteCog(object):
 
     @bot.command(pass_context=True, hidden=True)
     @bot.check(lambda ctx: type(ctx.message.author) is discord.Member)
-    @bot.check(lambda ctx: bot.has_role('Undeleter')(ctx) or bot.has_permissions(administrator = True)(ctx))
+    @bot.check(bot.has_any_role(*_PERMITTED_ROLES))
     async def undelete(self, ctx, n=1, name=None):
         msg = ctx.message
         if n < 1: return

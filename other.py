@@ -38,7 +38,8 @@ class Other:
                 await self.bot.say(self.dynamicCommands[command])
 
         async def developerError(self, error, ctx):
-            await self.bot.send_message(ctx.message.channel, 'You are not authorized to use that command.')
+            if type(error) == commands.CheckFailure:
+                await self.bot.send_message(ctx.message.channel, 'You are not authorized to use that command.')
         self.addCommand.error(developerError)
         self.removeCommand.error(developerError)
         self.save.error(developerError)

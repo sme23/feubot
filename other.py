@@ -5,7 +5,7 @@ import pickle
 from functools import reduce
 
 developerIDs = ['91393737950777344', '171863408822452224', '146075481534365697']
-developerCheck = commands.check(lambda x: x in developerIDs)
+developerCheck = commands.check(lambda x: x.message.author.id in developerIDs)
 
 class Other:
     """Commands added for convienience."""
@@ -36,6 +36,13 @@ class Other:
             @self.bot.command(name = command, cog_name = "Other")
             async def local():
                 await self.bot.say(self.dynamicCommands[command])
+
+        async def developerError(self, error, ctx):
+            await self.bot.send_message(ctx.message.channel, 'You are not authorized to use that command.')
+        self.addCommand.error(developerError)
+        self.removeCommand.error(developerError)
+        self.save.error(developerError)
+        self.botEval.error(developerError)
 
     @commands.command(ignore_extra = False)
     @developerCheck

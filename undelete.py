@@ -60,7 +60,7 @@ class UndeleteCog(object):
     async def undelete(self, ctx, n=1, name=None):
         msg = ctx.message
         if n < 1: return
-        result = _cache.last(msg, n, name)
+        result = _cache.last(msg.channel, n, name)
         if result is not None:
             FORMAT = self.AUTHOR_FORMAT if not name else self.NO_AUTHOR_FORMAT
             await self.bot.say(

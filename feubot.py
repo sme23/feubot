@@ -32,7 +32,7 @@ if __name__ == "__main__":
         if type(error) == commands.CheckFailure:
             pass
         else:
-            await self.bot.send_message(ctx.message.channel, error)
+            await bot.send_message(ctx.message.channel, error)
 
     @bot.command()
     async def donate():

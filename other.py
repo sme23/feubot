@@ -93,6 +93,11 @@ class Other:
         fix = lambda f: (lambda x: x(x))(lambda y: f(lambda args: y(y)(args)))
         res = eval(arg, __builtins__, { "fix" : fix , "reduce" : reduce })
         await self.bot.say(str(res))
+        
+    @commands.command(hidden = True)
+    @developerCheck
+    async def debug(self, *, arg):
+        await self.bot.say(str(eval(arg)))
 
 
 def setup(bot):

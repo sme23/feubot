@@ -21,6 +21,28 @@ def setupBot(bot):
     undelete.setup(bot)
     other.setup(bot)
     #TODO: Stuff like bot.other = bot.get_cog("Other") and such. Then initialize debug's "self" to be bot.
+    
+    bot.remove_command('debug')
+    #Reload this as part of reload due to use of other.developerCheck
+    @bot.command(pass_context=True, hidden = True, aliases = ['exec'])
+    @other.developerCheck
+    async def debug(ctx, *, arg):
+        # https://stackoverflow.com/questions/3906232/python-get-the-print-output-in-an-exec-statement
+        from io import StringIO
+        import sys
+        old_stdout = sys.stdout
+        redirected_output = sys.stdout = StringIO()
+        bot = ctx.bot
+        try:
+            exec(arg)
+        except SystemExit:
+            await bot.say("I tried to quit().")
+        finally:
+            sys.stdout = old_stdout
+        output = redirected_output.getvalue()
+        output = "No output." if not output else output
+        await bot.say(output)
+    
 
 if __name__ == "__main__":
     if "--debug" in argv:

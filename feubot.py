@@ -31,6 +31,8 @@ if __name__ == "__main__":
     async def on_command_error(error, ctx):
         if type(error) == commands.CheckFailure:
             pass
+        elif type(error) == commands.CommandNotFound:
+            pass
         else:
             await bot.send_message(ctx.message.channel, error)
 

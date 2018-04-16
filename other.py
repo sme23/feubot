@@ -38,7 +38,8 @@ class Other:
                 await self.bot.say(self.dynamicCommands[command])
 
         async def developerError(self, error, ctx):
-            await self.bot.send_message(ctx.message.channel, 'You are not authorized to use that command.')
+            if type(error) == commands.CheckFailure:
+                await self.bot.send_message(ctx.message.channel, 'You are not authorized to use that command.')
         self.addCommand.error(developerError)
         self.removeCommand.error(developerError)
         self.save.error(developerError)
@@ -92,6 +93,11 @@ class Other:
         fix = lambda f: (lambda x: x(x))(lambda y: f(lambda args: y(y)(args)))
         res = eval(arg, __builtins__, { "fix" : fix , "reduce" : reduce })
         await self.bot.say(str(res))
+        
+    @commands.command(hidden = True)
+    @developerCheck
+    async def debug(self, *, arg):
+        await self.bot.say(str(eval(arg)))
 
 
 def setup(bot):

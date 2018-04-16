@@ -6,8 +6,21 @@ import random
 import os
 from sys import argv
 
-import helpful, memes, reactions, undelete, other
 from feubotFormatter import FeubotFormatter
+
+def setupBot(bot):
+    import helpful, memes, reactions, undelete, other
+    bot.remove_cog("Reactions")
+    bot.remove_cog("Memes")
+    bot.remove_cog("Helpful")
+    bot.remove_cog("UndeleteCog")
+    bot.remove_cog("Other")
+    reactions.setup(bot)
+    memes.setup(bot)
+    helpful.setup(bot)
+    undelete.setup(bot)
+    other.setup(bot)
+    #TODO: Stuff like bot.other = bot.get_cog("Other") and such. Then initialize debug's "self" to be bot.
 
 if __name__ == "__main__":
     if "--debug" in argv:
@@ -46,10 +59,6 @@ if __name__ == "__main__":
     if token is None:
         token = open('./token').read().replace('\n','')
 
-    reactions.setup(bot)
-    memes.setup(bot)
-    helpful.setup(bot)
-    undelete.setup(bot)
-    other.setup(bot)
-
+    bot.reload = lambda: setupBot(bot)
+    setupBot(bot)
     bot.run(token)

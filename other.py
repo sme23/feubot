@@ -67,7 +67,7 @@ class Other:
             await self.bot.say("Custom command does not exist.")
             return
         del self.dynamicCommands[command_name]
-        self.bot.removeCommand(command_name)
+        self.bot.remove_command(command_name)
         await self.bot.say("Command \"%s\" successfully deleted." % command_name)
 
     @commands.command()
@@ -91,14 +91,30 @@ class Other:
     async def botEval(self, *, arg):
         """Admins only. Evaluate a Python code segment. UNSAFE!!!"""
         fix = lambda f: (lambda x: x(x))(lambda y: f(lambda args: y(y)(args)))
-        res = eval(arg, __builtins__, { "fix" : fix , "reduce" : reduce })
-        await self.bot.say(str(res))
+        try:
+            res = eval(arg, __builtins__, { "fix" : fix , "reduce" : reduce })
+            await self.bot.say(str(res))
+        except SystemExit:
+            await self.bot.say("I tried to quit().")
         
     @commands.command(hidden = True)
     @developerCheck
     async def debug(self, *, arg):
-        await self.bot.say(str(eval(arg)))
-
+        # https://stackoverflow.com/questions/3906232/python-get-the-print-output-in-an-exec-statement
+        from io import StringIO
+        import sys
+        old_stdout = sys.stdout
+        redirected_output = sys.stdout = StringIO()
+        bot = self.bot
+        try:
+            exec(arg)
+        except SystemExit:
+            await self.bot.say("I tried to quit().")
+        finally:
+            sys.stdout = old_stdout
+        output = redirected_output.getvalue()
+        output = "No output." if not output else output
+        await self.bot.say(output)
 
 def setup(bot):
     bot.add_cog(Other(bot))

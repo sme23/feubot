@@ -67,7 +67,7 @@ class Other:
             await self.bot.say("Custom command does not exist.")
             return
         del self.dynamicCommands[command_name]
-        self.bot.removeCommand(command_name)
+        self.bot.remove_command(command_name)
         await self.bot.say("Command \"%s\" successfully deleted." % command_name)
 
     @commands.command()
@@ -91,14 +91,11 @@ class Other:
     async def botEval(self, *, arg):
         """Admins only. Evaluate a Python code segment. UNSAFE!!!"""
         fix = lambda f: (lambda x: x(x))(lambda y: f(lambda args: y(y)(args)))
-        res = eval(arg, __builtins__, { "fix" : fix , "reduce" : reduce })
-        await self.bot.say(str(res))
-        
-    @commands.command(hidden = True)
-    @developerCheck
-    async def debug(self, *, arg):
-        await self.bot.say(str(eval(arg)))
-
+        try:
+            res = eval(arg, __builtins__, { "fix" : fix , "reduce" : reduce })
+            await self.bot.say(str(res))
+        except SystemExit:
+            await self.bot.say("I tried to quit().")
 
 def setup(bot):
     bot.add_cog(Other(bot))

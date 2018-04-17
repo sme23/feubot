@@ -21,7 +21,7 @@ def setupBot(bot):
     undelete.setup(bot)
     other.setup(bot)
     #TODO: Stuff like bot.other = bot.get_cog("Other") and such. Then initialize debug's "self" to be bot.
-    
+
     bot.remove_command('debug')
     #Reload this as part of reload due to use of other.developerCheck
     @bot.command(pass_context=True, hidden = True, aliases = ['exec'])
@@ -42,7 +42,7 @@ def setupBot(bot):
         output = redirected_output.getvalue()
         output = "No output." if not output else output
         await bot.say(output)
-    
+
 
 if __name__ == "__main__":
     if "--debug" in argv:
@@ -57,10 +57,6 @@ if __name__ == "__main__":
         print(bot.user.id)
         print('------')
         await bot.change_presence(game=discord.Game(name="Reading the doc!"))
-
-    @bot.event
-    async def on_message_delete(msg):
-        undelete.cache(msg)
 
     @bot.add_listener
     async def on_command_error(error, ctx):

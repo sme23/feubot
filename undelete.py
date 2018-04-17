@@ -4,6 +4,7 @@ from functools import reduce
 
 import discord
 from discord.ext import commands as bot
+from other import developerIDs
 
 _TIMEOUT = 60
 
@@ -49,6 +50,9 @@ class DeletedCache(object):
         ]
         super().__init__()
 
+undeleterPred = lambda ctx: not ctx.message.channel.is_private and discord.utils.get(ctx.message.author.roles, name="Undeleter") is not None
+manageMessagePred = lambda ctx: getattr(ctx.message.channel.permissions_for(ctx.message.author), 'manage_messages', None) == True
+
 class UndeleteCog(object):
     AUTHOR_FORMAT = '{author} said:\n```\n{content}```\n'
     NO_AUTHOR_FORMAT ='```\n{content}```\n'
@@ -56,7 +60,7 @@ class UndeleteCog(object):
 
     @bot.command(pass_context=True, hidden=True)
     @bot.check(lambda ctx: type(ctx.message.author) is discord.Member)
-    @bot.check(lambda ctx: bot.has_role('Undeleter')(ctx) or bot.has_permissions(manage_messages = True)(ctx))
+    @bot.check(lambda ctx: undeleterPred(ctx) or manageMessagePred(ctx) or ctx.message.author in developerIDs)
     async def undelete(self, ctx, n=1, name=None):
         msg = ctx.message
         if n < 1: return
@@ -84,8 +88,9 @@ class UndeleteCog(object):
             await self.bot.send_message(ctx.message.channel, 'You do not have undelete permissions.')
         self.undelete.error(undeleteError)
 
-def cache(msg):
+async def on_message_delete(msg):
     _cache.insert(msg)
 
 def setup(bot):
     bot.add_cog(UndeleteCog(bot))
+    bot.event(on_message_delete)

@@ -60,7 +60,7 @@ class UndeleteCog(object):
 
     @bot.command(pass_context=True, hidden=True)
     @bot.check(lambda ctx: type(ctx.message.author) is discord.Member)
-    @bot.check(lambda ctx: undeleterPred(ctx) or manageMessagePred(ctx) or ctx.message.author in developerIDs)
+    @bot.check(lambda ctx: undeleterPred(ctx) or manageMessagePred(ctx) or ctx.message.author.id in developerIDs)
     async def undelete(self, ctx, n=1, name=None):
         msg = ctx.message
         if n < 1: return

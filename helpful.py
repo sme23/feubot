@@ -108,7 +108,7 @@ class Helpful:
             return
         await self.bot.say(str(table[num]))
 
-    @bot.command(aliases = 'die')
+    @bot.command()
     async def roll(self, number, type="2RN"):
         """rolls hit or miss (e.g. >>hit 50 1rn/2rn[default]/fates)"""
         try:
@@ -133,7 +133,7 @@ class Helpful:
         if rolled <= num: await self.bot.say("HIT (%d)" % rolled)
         else: await self.bot.say("MISS (%d)" % rolled)
 
-    @bot.command()
+    @bot.command(aliases = ['die'])
     async def rollDie(self, n : int):
         if n <= 0:
             await self.bot.say("Specify a positive integer.")

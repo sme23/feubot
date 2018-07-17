@@ -38,7 +38,6 @@ class Other:
                 localCommand = command # Store for when command changes.
                 @self.bot.command(name = localCommand, cog_name = "Other")
                 async def local():
-                    await self.bot.say(localCommand)
                     await self.bot.say(self.dynamicCommands[localCommand])
             # And call it.
             makeCommand()

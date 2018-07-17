@@ -33,9 +33,14 @@ class Other:
             self.dynamicCommands = dict()
 
         for command in self.dynamicCommands:
-            @self.bot.command(name = command, cog_name = "Other")
-            async def local():
-                await self.bot.say(self.dynamicCommands[command])
+            # Add a layer of function abstraction to store a context-local variable
+            def makeCommand():
+                localCommand = command # Store for when command changes.
+                @self.bot.command(name = localCommand, cog_name = "Other")
+                async def local():
+                    await self.bot.say(self.dynamicCommands[localCommand])
+            # And call it.
+            makeCommand()
 
         async def developerError(self, error, ctx):
             if type(error) == commands.CheckFailure:

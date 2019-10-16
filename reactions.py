@@ -139,7 +139,7 @@ class Reactions:
 		
     @bot.command(aliases=["awfuldisplay"])
     async def awful(self):
-        """Kelly makes a really good Pegasus Knight. Trust me."""
+        """for when someone posts cringe"""
         await self.bot.upload("./awful.jpg")
 
 def setup(bot):

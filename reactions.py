@@ -137,7 +137,7 @@ class Reactions:
         """🤔"""
         await self.bot.upload("./uberthink.gif")
 		
-	@bot.command(aliases=["awfuldisplay"])
+    @bot.command(aliases=["awfuldisplay"])
     async def awful(self):
         """Kelly makes a really good Pegasus Knight. Trust me."""
         await self.bot.upload("./awful.jpg")

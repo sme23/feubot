@@ -69,6 +69,14 @@ class Helpful:
         self.bot = bot
         self.port = bot.listen('on_message')(self.port)
 
+	@bot.command(pass_context = True)
+	async def mod(self, ctx, rule_num, link):
+		"""!mod <rule number> <link to objectionable message> notifies the mods about potentially objectionable content. The message calling the command will be deleted after."""
+		await self.bot.send_message(ctx.message.author, "Your request for moderation was successful.")
+		await self.bot.delete_message(ctx.message)
+		mod_channel = self.bot.get_channel(185950511567077376)
+		paladins = self.bot.get_role(145992793796378624)
+		await self.bot.send_message(mod_channel, "%s, moderation request received: Rule %i, at %s." % (paladins, int(rule_num), link))
 
     @bot.command()
     async def goldmine(self):

@@ -70,7 +70,7 @@ class Helpful:
         self.port = bot.listen('on_message')(self.port)
 
     @bot.command(pass_context = True)
-    async def mod(self, ctx, rule_num, link):
+    async def mod(self, ctx, rule_num, *, link):
         """!mod <rule number> <link to objectionable message> notifies the mods about potentially objectionable content. The message calling the command will be deleted after."""
         FEU_id = "144670830150811649"
         if ctx.message.server is None or ctx.message.server.id == FEU_id:

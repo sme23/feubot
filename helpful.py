@@ -81,6 +81,14 @@ class Helpful:
             await self.bot.send_message(mod_channel, "%s, moderation request received by user %s: Rule %s, at %s." % (paladins, ctx.message.author.name, rule_num, link))
         else:
             await self.bot.say("Moderation features are for FEU only.")
+            
+    @bot.command()
+    async def howtomod(self):
+        await self.bot.say("First, have Developer Mode enabled (Settings -> Appearance -> Developer Mode.")
+        await self.bot.say("Then, click the `...` by the offending message, and click \"Copy ID\".")
+        await self.bot.say("Then simple say !mod <n> <link>, where <n> is the rule it violates, and <link> is the pasted link to the message.")
+        await self.bot.say("If you do not have Developer Mode, you may instead of a link, write a short description of where the infraction took place, and by who.")
+
     @bot.command()
     async def goldmine(self):
         """everything you ever wanted"""

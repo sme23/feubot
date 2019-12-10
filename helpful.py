@@ -77,7 +77,7 @@ class Helpful:
             await self.bot.send_message(ctx.message.author, "Your request for moderation was successful.")
             if ctx.message.server is not None:
                 await self.bot.delete_message(ctx.message)
-            mod_channel = self.bot.get_channel("185950511567077376")
+            mod_channel = self.bot.get_channel("650911156277477377")
             paladins = discord.utils.get(ctx.message.server.roles, id="145992793796378624").mention
             await self.bot.send_message(mod_channel, "%s, moderation request received by user %s: Rule %s, at %s." % (paladins, ctx.message.author.name, rule_num, link))
         else:

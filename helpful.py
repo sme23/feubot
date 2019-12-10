@@ -86,7 +86,7 @@ class Helpful:
     @bot.command()
     async def howtomod(self):
         """Gives information on how to use the !mod command."""
-        await self.bot.say("First, have Developer Mode enabled (Settings -> Appearance -> Developer Mode.")
+        await self.bot.say("First, have Developer Mode enabled (Settings -> Appearance -> Developer Mode).")
         await self.bot.say("Then, click the `...` by the offending message, and click \"Copy Link\".")
         await self.bot.say("Then simple say !mod <n> <link>, where <n> is the rule it violates, and <link> is the pasted link to the message.")
         await self.bot.say("If you do not have Developer Mode, you may instead of a link, write a short description of where the infraction took place, and by who.")

@@ -64,6 +64,12 @@ What the fuck did you just fucking say about me, you little bitch? I’ll have y
         """do something with arch"""
         direction = random.choice([":arrow_down:", ":arrow_up:"])
         await self.bot.say(direction+" with <:arch_mini:230160993299202068>")
+		
+    @bot.command()
+    async def colorz(self):
+        """do something with colorz"""
+        direction = random.choice([":arrow_down:", ":arrow_up:"])
+        await self.bot.say(direction+" with <:colorz:230159530158194688>")
 
 
     @bot.command()

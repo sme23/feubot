@@ -102,7 +102,7 @@ class Helpful:
     @bot.command(aliases=["repo"])
     async def repository(self):
         """graphics for you"""
-        embed=discord.Embed(title="Animation Repository", url='https://docs.google.com/spreadsheets/d/1JVVgtmLt1eL5M7WcRwCXmybZ7KroAU5ZajNu6fjXwSY/edit#gid=282808642', description="Get your animations here (credits missing on many, check just in case!)", color=0x4286f4)
+        embed=discord.Embed(title="Emblem Anims", url='https://emblem-anims.herokuapp.com/', description="Get your animations here (credits missing on some, check just in case!)", color=0x4286f4)
         await self.bot.say(embed=embed)
 
     @bot.command()

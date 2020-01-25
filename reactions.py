@@ -136,6 +136,11 @@ class Reactions:
     async def uberthink(self):
         """🤔"""
         await self.bot.upload("./uberthink.gif")
+		
+    @bot.command(aliases=["awfuldisplay"])
+    async def awful(self):
+        """for when someone posts cringe"""
+        await self.bot.upload("./awful.jpg")
 
 def setup(bot):
     bot.add_cog(Reactions(bot))

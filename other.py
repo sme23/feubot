@@ -7,7 +7,7 @@ from functools import reduce
 developerIDs = ['91393737950777344', '171863408822452224', '146075481534365697']
 developerCheck = commands.check(lambda x: x.message.author.id in developerIDs)
 
-class Other:
+class Other(commands.Cog):
     """Commands added for convienience."""
     def __init__(self, bot):
         self.bot = bot

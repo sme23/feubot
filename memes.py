@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands as bot
 import os, random, re, asyncio
 
-class Memes:
+class Memes(bot.Cog):
     """only the dankest"""
 
     def __init__(self, bot):

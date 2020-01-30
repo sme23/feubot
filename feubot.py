@@ -46,9 +46,9 @@ def setupBot(bot):
 
 if __name__ == "__main__":
     if "--debug" in argv:
-        bot = commands.Bot(command_prefix=['##', 'feubeta '], description='this is feubot beta.', formatter = FeubotFormatter())
+        bot = commands.Bot(command_prefix=['##', 'feubeta '], description='this is feubot beta.', help_command = FeubotFormatter(dm_help=True))
     else:
-        bot = commands.Bot(command_prefix=['!', '>>', 'feubot '], description='this is feubot.', formatter = FeubotFormatter())
+        bot = commands.Bot(command_prefix=['!', '>>', 'feubot '], description='this is feubot.', help_command = FeubotFormatter(dm_help=True))
 
     @bot.event
     async def on_ready():
@@ -56,7 +56,7 @@ if __name__ == "__main__":
         print(bot.user.name)
         print(bot.user.id)
         print('------')
-        await bot.change_presence(game=discord.Game(name="Reading the doc!"))
+        await bot.change_presence(activity=discord.Game(name="Reading the doc!"))
 
     @bot.add_listener
     async def on_command_error(error, ctx):

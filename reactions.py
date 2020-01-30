@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands as bot
 import os, random, re, asyncio
 
-class Reactions:
+class Reactions(bot.Cog):
     """memes but not"""
 
     def __init__(self, bot):

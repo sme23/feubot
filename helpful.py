@@ -62,7 +62,7 @@ def create_embed(posts, threads, term):
                 text="Truncated %d result(s)." % (len(posts)-numresults))
     return result
 
-class Helpful:
+class Helpful(bot.Cog):
     """Actually Helpful commands"""
 
     def __init__(self, bot):

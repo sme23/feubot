@@ -53,7 +53,7 @@ class DeletedCache(object):
 undeleterPred = lambda ctx: not ctx.message.channel.is_private and discord.utils.get(ctx.message.author.roles, name="Undeleter") is not None
 manageMessagePred = lambda ctx: getattr(ctx.message.channel.permissions_for(ctx.message.author), 'manage_messages', None) == True
 
-class UndeleteCog(object):
+class UndeleteCog(bot.Cog):
     AUTHOR_FORMAT = '{author} said:\n```\n{content}```\n'
     NO_AUTHOR_FORMAT ='```\n{content}```\n'
     __slots__ = ['bot']

@@ -40,7 +40,10 @@ class Other:
                 async def local():
                     await self.bot.say(self.dynamicCommands[localCommand])
             # And call it.
-            makeCommand()
+            try:
+                makeCommand()
+            except:
+                pass
 
         async def developerError(self, error, ctx):
             if type(error) == commands.CheckFailure:

@@ -1,5 +1,5 @@
 import discord
-from discord.ext import commands as bot
+from discord.ext import commands
 import urllib
 import urllib.request
 import urllib.error
@@ -62,14 +62,14 @@ def create_embed(posts, threads, term):
                 text="Truncated %d result(s)." % (len(posts)-numresults))
     return result
 
-class Helpful:
+class Helpful(commands.Cog):
     """Actually Helpful commands"""
 
     def __init__(self, bot):
         self.bot = bot
         self.port = bot.listen('on_message')(self.port)
 
-    @bot.command(pass_context = True)
+    @commands.command(pass_context = True)
     async def mod(self, ctx, rule_num, *, link):
         """!mod <rule number> <link to objectionable message>"""
         FEU_id = "144670830150811649"
@@ -83,7 +83,7 @@ class Helpful:
         else:
             await self.bot.say("Moderation features are for FEU only.")
             
-    @bot.command()
+    @commands.command()
     async def howtomod(self):
         """Gives information on how to use the !mod command."""
         await self.bot.say("First, have Developer Mode enabled (Settings -> Appearance -> Developer Mode).")
@@ -92,25 +92,25 @@ class Helpful:
         await self.bot.say("If you do not have Developer Mode, you may instead of a link, write a short description of where the infraction took place, and by who.")
         await self.bot.say("Note that after requesting moderation, the message requesting moderation will be removed.")
 
-    @bot.command()
+    @commands.command()
     async def goldmine(self):
         """everything you ever wanted"""
         embed=discord.Embed(title="Unified FE Hacking Dropbox", url='https://www.dropbox.com/sh/xl73trcck2la799/AAAMdpNSGQWEzYkLEQEiEhGFa?dl=0', description="All the hacking resources you could ever need, in one place", color=0xefba01)
         # embed.set_thumbnail(url='http://i.imgur.com/Bg5NSga.png')
         await self.bot.say(embed=embed)
 
-    @bot.command(aliases=["repo"])
+    @commands.command(aliases=["repo"])
     async def repository(self):
         """graphics for you"""
         embed=discord.Embed(title="Emblem Anims", url='https://emblem-anims.herokuapp.com/', description="Get your animations here (credits missing on some, check just in case!)", color=0x4286f4)
         await self.bot.say(embed=embed)
 
-    @bot.command()
+    @commands.command()
     async def mugs(self):
         """Link to image of all GBAFE mugs."""
         await self.bot.say("http://doc.feuniverse.us/static/resources/mugs.png")
 
-    @bot.command()
+    @commands.command()
     async def hit(self, number, type="2RN"):
         """Convert 2RN/fates hit to actual chance"""
         try:
@@ -130,7 +130,7 @@ class Helpful:
             return
         await self.bot.say(str(table[num]))
 
-    @bot.command()
+    @commands.command()
     async def roll(self, number, type="2RN"):
         """rolls hit or miss (e.g. >>hit 50 1rn/2rn[default]/fates)"""
         try:
@@ -155,7 +155,7 @@ class Helpful:
         if rolled <= num: await self.bot.say("HIT (%d)" % rolled)
         else: await self.bot.say("MISS (%d)" % rolled)
 
-    @bot.command(aliases = ['die'])
+    @commands.command(aliases = ['die'])
     async def rollDie(self, n : int):
         if n <= 0:
             await self.bot.say("Specify a positive integer.")
@@ -163,7 +163,7 @@ class Helpful:
         res = random.randrange(n) + 1
         await self.bot.say(str(res))
 
-    @bot.command()
+    @commands.command()
     async def search(self, *, term):
         """search feu"""
         root = "http://feuniverse.us/search.json?q=%s"
@@ -190,7 +190,7 @@ class Helpful:
                 except discord.errors.HTTPException:
                     print(embedded.title)
 
-    @bot.command(aliases=["UT2"])
+    @commands.command(aliases=["UT2"])
     async def ut2(self):
         """links ultimate tutorial v2"""
         embed=discord.Embed(title="Fire Emblem Hacking Ultimate Tutorial v2", url='https://tutorial.feuniverse.us/', description="How to do everything with Event Assembler buildfiles", color=0x40caf2)

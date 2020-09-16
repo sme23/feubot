@@ -1,43 +1,43 @@
 import discord
-from discord.ext import commands as bot
+from discord.ext import commands
 import os, random, re, asyncio
 
-class Memes:
+class Memes(commands.Cog):
     """only the dankest"""
 
     def __init__(self, bot):
         self.bot = bot
 
-    @bot.command()
+    @commands.command()
     async def reply(self):
         """r e p l y s o o n"""
         await self.bot.say("reply :soon: :smile:")
 
-    @bot.command()
+    @commands.command()
     async def whattime(self):
         """tells the time"""
         await self.bot.say("`it's tiki time`")
         # await asyncio.sleep(1)
         await self.bot.upload("tiki.gif")
 
-    @bot.command()
+    @commands.command()
     async def orbit(self):
         """my tiki's"""
         await self.bot.upload("Tikis_in_orbit.png")
 
-    @bot.command()
+    @commands.command()
     async def writing(self):
         """get it in writing. in blood."""
         await self.bot.upload("Pelleass_Blood_Pact.png")
 
-    @bot.command(aliases=["wtf"])
+    @commands.command(aliases=["wtf"])
     async def wtfdyjfsamylb(self):
         """what the fuck did you just fucking say about me you little bitch"""
         await self.bot.say("""```
 What the fuck did you just fucking say about me, you little bitch? I’ll have you know I graduated top of my class in the FE University, and I’ve been involved in numerous secret raids on Serenes Forest, and I have over 300 confirmed hacks. I am trained in donating to hex and I’m the top debugger in the entire FE Shrine. You are nothing to me but just another breakpoint. I will wipe you the fuck out with precision the likes of which has never been seen before on an ARMv7TDMI, mark my fucking words. You think you can get away with saying that shit to me over the Internet? Think again, fucker. As we speak I am contacting my secret network of backups across the ROM and your link register is being traced right now so you better prepare for the screech, fleshling. The death screech that wipes out the pathetic little thing you call your reskin. You’re fucking dead, kid. I can be anywhere, anytime, and I can crash your rom in over seven hundred ways, and that’s just with FEditor. Not only am I extensively trained in Nightmare, but I have access to the entire arsenal of the Unified FE Hacking Doc and I will use it to its full extent to wipe your miserable map sprite off the face of Magvel, you little shit. If only you could have known what unholy retribution your little “clever” comment was about to bring down upon you, maybe you would have held your fucking tongue. But you couldn’t, you didn’t, and now you’re paying the price, you goddamn idiot. I will shit Erin all over you and you will drown in it. You’re fucking dead, kiddo.
 ```""")
 
-    @bot.command(aliases=["ma???a"])
+    @commands.command(aliases=["ma???a"])
     async def ma___a(self):
         """what IS her name anyway"""
         letters = [x for x in "abcdefghijklmnopqrstuvwyxz"]
@@ -46,7 +46,7 @@ What the fuck did you just fucking say about me, you little bitch? I’ll have y
         infix = random.choice(consonants) + random.choice(letters) + random.choice(vowels)
         await self.bot.say("I think you mean Ma"+infix+"a!")
 
-    @bot.command()
+    @commands.command()
     async def evil(self, *args):
         """Sub-humans."""
         if len(args) > 0:
@@ -59,32 +59,32 @@ What the fuck did you just fucking say about me, you little bitch? I’ll have y
             await self.bot.say("You gotta tell me **what's** evil!")
 
 
-    @bot.command()
+    @commands.command()
     async def arch(self):
         """do something with arch"""
         direction = random.choice([":arrow_down:", ":arrow_up:"])
         await self.bot.say(direction+" with <:arch_mini:230160993299202068>")
 		
-    @bot.command()
+    @commands.command()
     async def colorz(self):
         """do something with colorz"""
         direction = random.choice([":arrow_down:", ":arrow_up:"])
         await self.bot.say(direction+" with <:colorz:230159530158194688>")
 
 
-    @bot.command()
+    @commands.command()
     async def style(self):
         """if my style gets in your way"""
         img = random.choice(["styleRD.gif", "stylePoR.jpeg"])
         await self.bot.upload(img)
 
-    @bot.command()
+    @commands.command()
     async def goofs(self):
         """list goofs"""
         filenameslist = [os.path.splitext(f)[0] for f in os.listdir("./goofs")]
         await self.bot.say("```"+"\n".join(map(str, filenameslist))+"```")
 
-    @bot.command()
+    @commands.command()
     async def goof(self,*args):
         """show goof"""
         requested = args
@@ -106,7 +106,7 @@ What the fuck did you just fucking say about me, you little bitch? I’ll have y
         else:
             await self.bot.upload("./goofs/"+random.choice([a for a in gooflist.values()]))
 
-    @bot.command()
+    @commands.command()
     async def whois(self,*args):
         """roy is our boy"""
         if len(args) > 0:
@@ -132,7 +132,7 @@ What the fuck did you just fucking say about me, you little bitch? I’ll have y
                 blord = 'b'+lord
             await self.bot.say(lord + " is our " + blord)
 
-    @bot.command()
+    @commands.command()
     async def createwaifu(self,*args):
         """:wink:"""
         heads = [
@@ -170,7 +170,7 @@ What the fuck did you just fucking say about me, you little bitch? I’ll have y
 <:personality:385616854451748864>
 <:thighs:294965155819683840>""")
 
-    @bot.command()
+    @commands.command()
     async def doot(self):
         """doot doot"""
         flip = random.choice([0,1])
@@ -183,14 +183,14 @@ What the fuck did you just fucking say about me, you little bitch? I’ll have y
         else:
             await self.bot.upload("./DOOT.png")
 
-    @bot.command(aliases=["(lol"])
+    @commands.command(aliases=["(lol"])
     async def lol(self):
         """(lol"""
         flip = random.choice([0,1])
         if flip==1: await self.bot.upload("./Water_lol.png")
         else: await self.bot.upload("./Water_lol2.png")
 
-    @bot.command(aliases=["eventassembler", "everythingassembler"])
+    @commands.command(aliases=["eventassembler", "everythingassembler"])
     async def ea(self):
         """EVERYTHING ASSEMBLER"""
         everythingassemblerstring = """``` _____                 _   _   _
@@ -204,39 +204,39 @@ What the fuck did you just fucking say about me, you little bitch? I’ll have y
 |__|__|___|___|___|_|_|_|___|_|___|_|```"""
         await self.bot.say(everythingassemblerstring)
 
-    @bot.command()
+    @commands.command()
     async def casual(self):
         """just play phoenix"""
         barflist = os.listdir("./casual")
         await self.bot.upload("./casual/"+random.choice(barflist))
 
-    @bot.command()
+    @commands.command()
     async def erin(self):
         """ERIN INTENSIFIES"""
         await self.bot.upload("./erinyous.gif")
 
-    @bot.command()
+    @commands.command()
     async def slow(self):
         """It's what I ain't."""
         await self.bot.upload("./slow.png")
 
-    @bot.command()
+    @commands.command()
     async def fury(self):
         """2 FAST 2 FURYOUS"""
         await self.bot.say("Don't you mean `>>erin`?")
 
-    @bot.command(aliases=["SOA", 'SoA'])
+    @commands.command(aliases=["SOA", 'SoA'])
     async def soa(self):
         """there's your problem"""
         await self.bot.upload("./SoA.png")
 
-    @bot.command()
+    @commands.command()
     async def hard(self):
         """HARD"""
         await self.bot.upload("./hard.png")
 
     #TODO: HUBBA TESTER
-    @bot.command()
+    @commands.command()
     async def hubba(self, person1, person2):
         """discover their true feelings"""
         best_responses = ("About to swoon","Always staring","Carries a torch for","Desires attention","Devoted","Drawn by destiny","Drools openly","Fatal attraction","First love","Has a sweet spot","Head over heels","Heart aflutter","Infatuated","Lives and dies for","Loins afire","Lost in pheromones","Lovey Dovey","Never wants to part","One-track mind","Possessive","Puts on a pedestal","Separation anxiety","Smitten","True love","True sacrificer","Uses pet names","Wants to snuggle","Way too attached","Would give anything","Would hold hands")

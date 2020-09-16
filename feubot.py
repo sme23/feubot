@@ -22,7 +22,7 @@ def setupBot(bot):
     other.setup(bot)
     #TODO: Stuff like bot.other = bot.get_cog("Other") and such. Then initialize debug's "self" to be bot.
 
-    bot.remove_command('debug')
+    #bot.remove_command('debug')
     #Reload this as part of reload due to use of other.developerCheck
     @bot.command(pass_context=True, hidden = True, aliases = ['exec'])
     @other.developerCheck

@@ -7,7 +7,7 @@ from functools import reduce
 developerIDs = ['91393737950777344', '171863408822452224', '146075481534365697']
 developerCheck = commands.check(lambda x: x.message.author.id in developerIDs)
 
-class Other:
+class Other(commands.Cog):
     """Commands added for convienience."""
     def __init__(self, bot):
         self.bot = bot
@@ -36,7 +36,7 @@ class Other:
             # Add a layer of function abstraction to store a context-local variable
             def makeCommand():
                 localCommand = command # Store for when command changes.
-                @self.bot.command(name = localCommand, cog_name = "Other")
+                @self.commands.command(name = localCommand, cog_name = "Other")
                 async def local():
                     await self.bot.say(self.dynamicCommands[localCommand])
             # And call it.
@@ -62,7 +62,7 @@ class Other:
             return
 
         self.dynamicCommands[command_name] = command_content
-        @self.bot.command(name = command_name, cog_name = "Other")
+        @self.commands.command(name = command_name, cog_name = "Other")
         async def local():
             await self.bot.say(command_content)
         await self.bot.say("Added command \"%s\"." % command_name)

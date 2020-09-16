@@ -1,20 +1,20 @@
 import discord
-from discord.ext import commands as bot
+from discord.ext import commands
 import os, random, re, asyncio
 
-class Reactions:
+class Reactions(commands.Cog):
     """memes but not"""
 
     def __init__(self, bot):
         self.bot = bot
 
-    @bot.command()
+    @commands.command()
     async def ews(self):
         """disgusting list"""
         filenameslist = [os.path.splitext(f)[0] for f in os.listdir("./disgusting")]
         await self.bot.say("```"+"\n".join(map(str, filenameslist))+"```")
 
-    @bot.command()
+    @commands.command()
     async def ew(self,*args):
         """disgusting"""
         requested = args
@@ -36,32 +36,32 @@ class Reactions:
         else:
             await self.bot.upload("./disgusting/"+random.choice([a for a in ewlist.values()]))
 
-    @bot.command(aliases=["incredible"])
+    @commands.command(aliases=["incredible"])
     async def fuckingincredible(self):
         """fuckingincredible.png"""
         await self.bot.say("http://i.imgur.com/yt4hXhJ.png")
 
-    @bot.command()
+    @commands.command()
     async def crackers(self):
         """jumping boat monkeys!"""
         await self.bot.upload("./Holy_crackers.png")
 
-    @bot.command()
+    @commands.command()
     async def hector(self):
         """judges you"""
         await self.bot.upload("./hectorpc.png")
 
-    @bot.command()
+    @commands.command()
     async def eliwood(self):
         """:("""
         await self.bot.upload("./eliwoodpc.jpg")
 
-    @bot.command()
+    @commands.command()
     async def lyn(self):
         """>:("""
         await self.bot.upload("./lynpc.png")
 
-    @bot.command()
+    @commands.command()
     async def spritans(self):
         """REEE"""
         await self.bot.say("muh")
@@ -71,7 +71,7 @@ class Reactions:
         await self.bot.say("***REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE***")
 
 
-    @bot.command()
+    @commands.command()
     async def reee(self):
         """REEEEEEEEEEEEEEEEEEE"""
         action = random.choice([1,2])
@@ -86,38 +86,38 @@ class Reactions:
         else:
             await self.bot.upload("./reee.gif")           
 
-    @bot.command(aliases=["f", 'respects'])
+    @commands.command(aliases=["f", 'respects'])
     async def F(self):
         """Press F to pay respects."""
         await self.bot.upload("./respects.jpeg")
 
-    @bot.command()
+    @commands.command()
     async def enough(self):
         """you wouldn't like me when i'm angry"""
         await self.bot.upload("./enough.png")
 
-    @bot.command()
+    @commands.command()
     async def creepy(self):
         """stay away"""
         await self.bot.upload("./creepy.png")
 
-    @bot.command()
+    @commands.command()
     async def tethys(self):
         """dancer think"""
         await self.bot.upload("./tethys.png")
 
-    @bot.command()
+    @commands.command()
     async def marisa(self):
         """u srs"""
         await self.bot.upload("./marisa.png")
 
-    @bot.command()
+    @commands.command()
     async def lel(self):
         """lel"""
         img=random.choice(["./lel.png","./lel2.png"])
         await self.bot.upload(img)
 
-    @bot.command(pass_context=True, hidden=True)
+    @commands.command(pass_context=True, hidden=True)
     async def approve(self, ctx):
         pid = str(ctx.message.author.id)
         if pid == "171863408822452224":
@@ -127,17 +127,17 @@ class Reactions:
         else:
             await self.bot.upload('./FEU_Seal.png')
 
-    @bot.command(aliases=["OK"])
+    @commands.command(aliases=["OK"])
     async def ok(self):
         """ok"""
         await self.bot.upload("./ok.png")
 
-    @bot.command()
+    @commands.command()
     async def uberthink(self):
         """🤔"""
         await self.bot.upload("./uberthink.gif")
 		
-    @bot.command(aliases=["awfuldisplay"])
+    @commands.command(aliases=["awfuldisplay"])
     async def awful(self):
         """for when someone posts cringe"""
         await self.bot.upload("./awful.jpg")

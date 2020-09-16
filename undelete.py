@@ -3,7 +3,7 @@ from time import time
 from functools import reduce
 
 import discord
-from discord.ext import commands as bot
+from discord.ext import commands
 from other import developerIDs
 
 _TIMEOUT = 60
@@ -53,14 +53,14 @@ class DeletedCache(object):
 undeleterPred = lambda ctx: not ctx.message.channel.is_private and discord.utils.get(ctx.message.author.roles, name="Undeleter") is not None
 manageMessagePred = lambda ctx: getattr(ctx.message.channel.permissions_for(ctx.message.author), 'manage_messages', None) == True
 
-class UndeleteCog(object):
+class UndeleteCog(commands.Cog):
     AUTHOR_FORMAT = '{author} said:\n```\n{content}```\n'
     NO_AUTHOR_FORMAT ='```\n{content}```\n'
     __slots__ = ['bot']
 
-    @bot.command(pass_context=True, hidden=True)
-    @bot.check(lambda ctx: type(ctx.message.author) is discord.Member)
-    @bot.check(lambda ctx: undeleterPred(ctx) or manageMessagePred(ctx) or ctx.message.author in developerIDs)
+    @commands.command(pass_context=True, hidden=True)
+    @commands.check(lambda ctx: type(ctx.message.author) is discord.Member)
+    @commands.check(lambda ctx: undeleterPred(ctx) or manageMessagePred(ctx) or ctx.message.author in developerIDs)
     async def undelete(self, ctx, n=1, name=None):
         msg = ctx.message
         if n < 1: return

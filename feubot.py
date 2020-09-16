@@ -56,7 +56,7 @@ if __name__ == "__main__":
         print(bot.user.name)
         print(bot.user.id)
         print('------')
-        await bot.change_presence(game=discord.Game(name="Reading the doc!"))
+        await bot.change_presence(activity=discord.Game(name="Reading the doc!"))
 
     @bot.add_listener
     async def on_command_error(error, ctx):

@@ -49,3 +49,7 @@ Temporary Items
 #login details
 token
 clientid
+
+#dumb script
+_startbot.bat
+
